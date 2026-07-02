@@ -23,6 +23,12 @@ export default defineNuxtConfig({
     }
   },
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    // Privé : accessible uniquement côté serveur (jamais exposé au client)
+    resendApiKey: process.env.RESEND_API_KEY,
+    contactToEmail: process.env.CONTACT_TO_EMAIL || 'safiamomentsdevie@gmail.com',
+    contactFromEmail: process.env.CONTACT_FROM_EMAIL,
+  },
   sitemap: {
     urls: [
       '/',

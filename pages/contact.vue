@@ -39,6 +39,9 @@ const canSubmitDetails = computed(() =>
   form.prenom.trim() && form.nom.trim() && form.email.trim() && form.message.trim()
 )
 
+const isSubmitting = ref(false)
+const submitError = ref('')
+
 function selectType(type: 'photo' | 'formation') {
   selectedType.value = type
   selectedFormule.value = null
@@ -59,9 +62,33 @@ function goBack() {
   if (step.value === 'details') step.value = 'formule'
 }
 
-function submitForm() {
-  if (!canSubmitDetails.value) return
-  step.value = 'sent'
+async function submitForm() {
+  if (!canSubmitDetails.value || isSubmitting.value) return
+
+  isSubmitting.value = true
+  submitError.value = ''
+
+  try {
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        prenom: form.prenom,
+        nom: form.nom,
+        email: form.email,
+        telephone: form.telephone,
+        date: form.date,
+        message: form.message,
+        type: selectedType.value,
+        formule: selectedFormuleLabel.value,
+      },
+    })
+    step.value = 'sent'
+  } catch (err) {
+    console.error(err)
+    submitError.value = "Une erreur est survenue lors de l'envoi. Merci de réessayer ou de m'écrire directement à safiamomentsdevie@gmail.com."
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 function reset() {
@@ -251,8 +278,14 @@ const stepIndex = computed(() => {
 
               <p class="ct-fields__required">* Champs obligatoires</p>
 
-              <button class="ct-btn" :class="{ 'ct-btn--disabled': !canSubmitDetails }" @click="submitForm">
-                Envoyer ma demande →
+              <p v-if="submitError" class="ct-fields__error">{{ submitError }}</p>
+
+              <button
+                class="ct-btn"
+                :class="{ 'ct-btn--disabled': !canSubmitDetails || isSubmitting }"
+                @click="submitForm"
+              >
+                {{ isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande →' }}
               </button>
             </div>
           </div>
@@ -741,6 +774,12 @@ const stepIndex = computed(() => {
   color: var(--text-light);
   font-style: italic;
   margin-top: -0.25rem;
+}
+
+.ct-fields__error {
+  font-size: 0.75rem;
+  color: #b5443a;
+  line-height: 1.6;
 }
 
 /* ══════════════════════════════════════

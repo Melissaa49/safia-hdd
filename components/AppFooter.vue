@@ -10,11 +10,16 @@
       <div class="footer__info">
         <p>Lille, France</p>
         <p>6 ans d'expérience</p>
-        <p>TVA BE 0455 025 614 — Belgique</p>
       </div>
 
       <div class="footer__legal">
         <p>© {{ new Date().getFullYear() }} Safia HDD — Tous droits réservés</p>
+        <p>
+          <NuxtLink to="/mentions-legales" class="footer__alerya">Mentions légales</NuxtLink>
+        </p>
+        <p>
+          <NuxtLink to="/cgv" class="footer__alerya">CGV</NuxtLink>
+        </p>
         <p>
           Site créé par
           <a href="https://www.alerya.fr" target="_blank" rel="noopener" class="footer__alerya">
