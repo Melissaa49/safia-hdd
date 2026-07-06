@@ -7,43 +7,43 @@ useSeoMeta({
 const featured = '/images/galery/mariage.jpg'
 
 const mariagePhotos = [
-  { src: '/images/galery/mariage1.jpg', tall: true },
-  { src: '/images/galery/mariage2.jpg', tall: false },
-  { src: '/images/galery/mariage3.JPG', tall: false },
-  { src: '/images/galery/mariage4.JPG', tall: true },
-  { src: '/images/galery/mariage5.JPG', tall: false },
-  { src: '/images/galery/mariage6.jpg', tall: false },
-  { src: '/images/galery/mariage6.JPG', tall: true },
-  { src: '/images/galery/mariage7.jpg', tall: false },
-  { src: '/images/galery/mariage8.jpg', tall: false },
-  { src: '/images/galery/mariage9.jpg', tall: true },
-  { src: '/images/galery/mariage10.jpg', tall: false },
-  { src: '/images/galery/mariage11.jpg', tall: false },
-  { src: '/images/galery/mariage12.jpg', tall: false },
+  { src: '/images/galery/mariage1.jpg' },
+  { src: '/images/galery/mariage2.jpg' },
+  { src: '/images/galery/mariage3.JPG' },
+  { src: '/images/galery/mariage4.JPG' },
+  { src: '/images/galery/mariage5.JPG' },
+  { src: '/images/galery/mariage6.jpg' },
+  { src: '/images/galery/mariage6.JPG' },
+  { src: '/images/galery/mariage7.jpg' },
+  { src: '/images/galery/mariage8.jpg' },
+  { src: '/images/galery/mariage9.jpg' },
+  { src: '/images/galery/mariage10.jpg' },
+  { src: '/images/galery/mariage11.jpg' },
+  { src: '/images/galery/mariage12.jpg' },
 ]
 
 const entrepreneurPhotos = [
-  { src: '/images/galery/entrepreneur.jpg', tall: true },
-  { src: '/images/galery/entrepreneur2.jpg', tall: false },
-  { src: '/images/galery/entrepreneur3.jpg', tall: false },
-  { src: '/images/galery/entrepreneur4.jpg', tall: true },
-  { src: '/images/galery/entrepreneur5.jpg', tall: false },
-  { src: '/images/galery/entrepreneur6.jpg', tall: false },
-  { src: '/images/galery/entrepreneur7.jpg', tall: false },
-  { src: '/images/galery/entrepreneur8.jpg', tall: true },
-  { src: '/images/galery/entrepreneur9.jpg', tall: false },
-  { src: '/images/galery/entrepreneur10.jpg', tall: false },
-  { src: '/images/galery/entrepreneur12.jpg', tall: false },
-  { src: '/images/galery/entrepreneur13.jpg', tall: false },
-  { src: '/images/galery/entrepreneur14.jpg', tall: false },
-  { src: '/images/galery/entrepreneur15.jpg', tall: true },
-  { src: '/images/galery/entrepreneur16.jpg', tall: false },
+  { src: '/images/galery/entrepreneur.jpg' },
+  { src: '/images/galery/entrepreneur2.jpg' },
+  { src: '/images/galery/entrepreneur3.jpg' },
+  { src: '/images/galery/entrepreneur4.jpg' },
+  { src: '/images/galery/entrepreneur5.jpg' },
+  { src: '/images/galery/entrepreneur6.jpg' },
+  { src: '/images/galery/entrepreneur7.jpg' },
+  { src: '/images/galery/entrepreneur8.jpg' },
+  { src: '/images/galery/entrepreneur9.jpg' },
+  { src: '/images/galery/entrepreneur10.jpg' },
+  { src: '/images/galery/entrepreneur12.jpg' },
+  { src: '/images/galery/entrepreneur13.jpg' },
+  { src: '/images/galery/entrepreneur14.jpg' },
+  { src: '/images/galery/entrepreneur15.jpg' },
+  { src: '/images/galery/entrepreneur16.jpg' },
 ]
 
 // ══════════════════════════════════════
 // LIGHTBOX
 // ══════════════════════════════════════
-type Photo = { src: string; tall: boolean }
+type Photo = { src: string }
 
 const lightboxOpen = ref(false)
 const currentGallery = ref<Photo[]>([])
@@ -137,7 +137,6 @@ watch(lightboxOpen, (open) => {
           v-for="(photo, i) in mariagePhotos"
           :key="'mariage-' + i"
           class="pf-item"
-          :class="{ 'pf-item--tall': photo.tall }"
           @click="openLightbox(mariagePhotos, i)"
         >
           <img :src="photo.src" alt="Photographie de mariage" loading="lazy" />
@@ -170,7 +169,6 @@ watch(lightboxOpen, (open) => {
           v-for="(photo, i) in entrepreneurPhotos"
           :key="'entrepreneur-' + i"
           class="pf-item"
-          :class="{ 'pf-item--tall': photo.tall }"
           @click="openLightbox(entrepreneurPhotos, i)"
         >
           <img :src="photo.src" alt="Portrait professionnel entrepreneur" loading="lazy" />
@@ -400,28 +398,24 @@ watch(lightboxOpen, (open) => {
   transform: scaleX(-1);
 }
 
-/* Grille */
+/* Grille en masonry : chaque image garde son ratio naturel, rien n'est coupé */
 .pf-gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  grid-auto-rows: 280px;
+  column-count: 3;
+  column-gap: 1rem;
 }
 
 .pf-item {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-}
-
-.pf-item--tall {
-  grid-row: span 2;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  border-radius: 2px;
 }
 
 .pf-item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
   transition: transform 0.45s ease;
 }
@@ -507,8 +501,7 @@ watch(lightboxOpen, (open) => {
   .pf-gallery { padding: 3rem 1.5rem; }
 
   .pf-gallery__grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
+    column-count: 2;
   }
 
   .pf-cta { padding: 4rem 1.5rem; }
@@ -516,10 +509,11 @@ watch(lightboxOpen, (open) => {
 
 @media (max-width: 500px) {
   .pf-gallery__grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 160px;
-    gap: 0.6rem;
+    column-count: 2;
+    column-gap: 0.6rem;
   }
+
+  .pf-item { margin-bottom: 0.6rem; }
 
   .pf-gallery__header { gap: 0.75rem; }
   .pf-gallery__floral { display: none; }
