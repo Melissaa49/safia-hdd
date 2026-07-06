@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Tarifs — Safia HDD Photographe',
-  description: "Découvrez les formules et tarifs pour vos reportages de mariage et les programmes de coaching photo Glow Up en Photo.",
+  description: "Découvrez les formules et tarifs pour vos reportages de mariage et le programme de coaching photo Glow Up en Photo.",
 })
 
 const mariageFormules = [
@@ -35,60 +35,18 @@ const mariageFormules = [
 
 const glowUpFormules = [
   {
-    tag: 'Glow Up Starter',
-    badge: 'Pour démarrer',
-    badgeSecondary: true,
-    duree: '1 mois de suivi',
-    prix: '199',
-    from: false,
-    desc: "Idéal pour poser de bonnes bases rapidement.",
-    items: [
-      "1 visio mentoring d'1h en direct avec Safia",
-      "Exercices pratiques envoyés chaque semaine",
-      "Retours détaillés sur tes photos",
-    ],
-    recommande: false,
-    highlight: false,
-  },
-  {
-    tag: 'Glow Up Mentoring',
-    badge: 'Le plus choisi',
+    tag: 'Modulable',
+    badge: '',
     badgeSecondary: false,
-    duree: '2 mois de suivi',
-    prix: '497',
-    from: false,
-    desc: "Pour ancrer durablement tes compétences.",
-    items: [
-      "2 visios mentoring d'1h avec Safia",
-      "Exercices pratiques chaque semaine",
-      "Accès à la plateforme d'échange & de cours",
-      "Communauté pour partager et progresser ensemble",
-      "Suivi personnalisé continu sur 2 mois",
-    ],
-    recommande: true,
-    highlight: false,
-  },
-  {
-    tag: 'Glow Up Premium',
-    badge: 'Immersif',
-    badgeSecondary: true,
-    duree: '3 mois de suivi',
-    prix: '1 890',
+    duree: 'Formation modulable',
+    prix: '1 990',
     from: true,
-    desc: "Pour un accompagnement complet et rapproché.",
+    desc: "Un accompagnement entièrement modulable, construit avec toi selon tes objectifs, ta disponibilité et ton rythme de progression.",
     items: [
-      "1 journée complète en présentiel (Mouscron ou Paris)",
-      "30 min de mentoring chaque semaine + exercices",
-      "Accès à la plateforme d'échange & de cours",
-      "Suivi quotidien via WhatsApp",
-      "Accompagnement de A à Z sur 3 mois",
-      "Possibilité de me suivre lors d'un événement sur le terrain",
-      "Travail sur la posture du photographe",
-      "Comment trouver tes premiers clients",
-      "Aide pour la communication sur les réseaux sociaux",
-      "Aide pour la mise en place de templates sur Canva",
-      "Maîtrise des réglages de l'appareil photo",
-      "Retouche Lightroom",
+      "Programme construit sur-mesure avec Safia",
+      "Durée et rythme adaptés à tes besoins",
+      "Visios et suivi personnalisés",
+      "Accès à la plateforme de cours",
     ],
     recommande: false,
     highlight: true,
@@ -193,8 +151,8 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
         <h2 class="tr-section__title tr-section__title--light">Glow Up en Photo</h2>
         <p class="tr-section__script tr-section__script--accent">Apprends à capturer des images qui te ressemblent.</p>
         <p class="tr-section__subdesc">
-          Trois formules pour progresser en photo selon ton rythme et ton ambition —
-          du suivi mensuel pour poser les bases, jusqu'au coaching immersif avec présentiel.
+          Une formule modulable pour progresser en photo à ton rythme —
+          construite avec toi selon tes objectifs et ta disponibilité.
         </p>
       </div>
 
@@ -229,7 +187,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
         </div>
       </div>
 
-      <p class="tr-glow__paiement">◯ &nbsp; Paiement en 3 fois disponible pour toutes les formules</p>
+      <p class="tr-glow__paiement">◯ &nbsp; Paiement en 3 fois disponible</p>
     </section>
 
     <!-- CITATION -->
@@ -531,9 +489,9 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
 ══════════════════════════════════════ */
 .tr-glow__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 1100px;
+  max-width: 420px;
   margin: 0 auto;
   align-items: start;
 }
