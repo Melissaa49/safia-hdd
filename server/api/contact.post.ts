@@ -31,8 +31,8 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  // 1. Email à Safia — nouvelle demande (CRITIQUE : si ça échoue, on renvoie une erreur au client)
   try {
-    // 1. Email à Safia — nouvelle demande
     await sendEmail({
       from: FROM_EMAIL,
       to: TO_EMAIL,
@@ -49,8 +49,16 @@ export default defineEventHandler(async (event) => {
         <p><strong>Message :</strong><br>${String(message).replace(/\n/g, '<br>')}</p>
       `,
     })
+  } catch (err) {
+    console.error('Échec envoi email notification Safia :', err)
+    throw createError({ statusCode: 500, statusMessage: "Erreur lors de l'envoi de l'email." })
+  }
 
-    // 2. Email de confirmation au client
+  // 2. Email de confirmation au client — PAS CRITIQUE : la demande est déjà reçue par Safia.
+  // Si cet email échoue (ex: domaine Resend non vérifié), on log l'erreur mais on ne fait
+  // pas planter la requête, sinon le client verrait un message d'erreur alors que sa demande
+  // a bien été transmise.
+  try {
     await sendEmail({
       from: FROM_EMAIL,
       to: email,
@@ -59,13 +67,12 @@ export default defineEventHandler(async (event) => {
         <p>Bonjour ${prenom},</p>
         <p>Merci pour votre message ! J'ai bien reçu votre demande concernant <strong>${formule || type || 'votre projet'}</strong>.</p>
         <p>Je vous répondrai dans les <strong>48h</strong>.</p>
-        <p>À très vite,<br><strong>Safia HDD</strong><br>Photographe de mariage — Lille</p>
+        <p>À très vite,<br><strong>Safia HDD</strong><br>Photographe de mariage — Mouscron</p>
       `,
     })
-
-    return { success: true }
   } catch (err) {
-    console.error(err)
-    throw createError({ statusCode: 500, statusMessage: "Erreur lors de l'envoi de l'email." })
+    console.error('Échec envoi email confirmation client (vérifie ton domaine Resend) :', err)
   }
+
+  return { success: true }
 })

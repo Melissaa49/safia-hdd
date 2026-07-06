@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Safia HDD — Photographe de mariage',
+  title: 'Safia Moments de Vie — Photographe de mariage',
   description: 'Photographe de mariage en France. Des souvenirs sincères, des émotions vraies, immortalisées avec douceur et authenticité.',
 })
 
@@ -10,7 +10,7 @@ const activeTab = ref('Mariages')
 const heroImg = '/images/polaroid1.jpg'
 
 const approchePolaroids = [
-  '/images/galery/mariage5.JPG',
+  '/images/polaroid4.jpg',
   '/images/galery/entrepreneur6.jpg',
   '/images/galery/mariage9.jpg',
 ]
@@ -58,7 +58,6 @@ const galleryImgs = computed(() => collectionsImages[activeTab.value as keyof ty
         <img :src="heroImg" alt="Photographie de mariage" />
       </div>
       <div class="hero__badge">
-        <span class="hero__badge-initials">SH</span>
         Photographe<br>Storyteller
       </div>
     </div>

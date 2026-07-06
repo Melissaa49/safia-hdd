@@ -19,6 +19,7 @@ const mariagePhotos = [
   { src: '/images/galery/mariage9.jpg', tall: true },
   { src: '/images/galery/mariage10.jpg', tall: false },
   { src: '/images/galery/mariage11.jpg', tall: false },
+  { src: '/images/galery/mariage12.jpg', tall: false },
 ]
 
 const entrepreneurPhotos = [
@@ -32,13 +33,53 @@ const entrepreneurPhotos = [
   { src: '/images/galery/entrepreneur8.jpg', tall: true },
   { src: '/images/galery/entrepreneur9.jpg', tall: false },
   { src: '/images/galery/entrepreneur10.jpg', tall: false },
-  { src: '/images/galery/entrepreneur11.jpg', tall: true },
   { src: '/images/galery/entrepreneur12.jpg', tall: false },
   { src: '/images/galery/entrepreneur13.jpg', tall: false },
   { src: '/images/galery/entrepreneur14.jpg', tall: false },
   { src: '/images/galery/entrepreneur15.jpg', tall: true },
   { src: '/images/galery/entrepreneur16.jpg', tall: false },
 ]
+
+// ══════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════
+type Photo = { src: string; tall: boolean }
+
+const lightboxOpen = ref(false)
+const currentGallery = ref<Photo[]>([])
+const currentIndex = ref(0)
+
+function openLightbox(gallery: Photo[], index: number) {
+  currentGallery.value = gallery
+  currentIndex.value = index
+  lightboxOpen.value = true
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false
+}
+
+function nextImage() {
+  currentIndex.value = (currentIndex.value + 1) % currentGallery.value.length
+}
+
+function prevImage() {
+  currentIndex.value = (currentIndex.value - 1 + currentGallery.value.length) % currentGallery.value.length
+}
+
+function onKeydown(e: KeyboardEvent) {
+  if (!lightboxOpen.value) return
+  if (e.key === 'Escape') closeLightbox()
+  if (e.key === 'ArrowRight') nextImage()
+  if (e.key === 'ArrowLeft') prevImage()
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
+
+watch(lightboxOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
 </script>
 
 <template>
@@ -97,6 +138,7 @@ const entrepreneurPhotos = [
           :key="'mariage-' + i"
           class="pf-item"
           :class="{ 'pf-item--tall': photo.tall }"
+          @click="openLightbox(mariagePhotos, i)"
         >
           <img :src="photo.src" alt="Photographie de mariage" loading="lazy" />
         </div>
@@ -129,6 +171,7 @@ const entrepreneurPhotos = [
           :key="'entrepreneur-' + i"
           class="pf-item"
           :class="{ 'pf-item--tall': photo.tall }"
+          @click="openLightbox(entrepreneurPhotos, i)"
         >
           <img :src="photo.src" alt="Portrait professionnel entrepreneur" loading="lazy" />
         </div>
@@ -145,6 +188,57 @@ const entrepreneurPhotos = [
     </section>
 
   </div>
+
+  <!-- LIGHTBOX -->
+  <Teleport to="body">
+    <Transition name="lb-fade">
+      <div v-if="lightboxOpen" class="lb-overlay" @click.self="closeLightbox">
+
+        <button class="lb-close" @click="closeLightbox" aria-label="Fermer">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <button
+          v-if="currentGallery.length > 1"
+          class="lb-nav lb-nav--prev"
+          @click.stop="prevImage"
+          aria-label="Image précédente"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M11 2L4 9L11 16" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="lb-stage">
+          <Transition name="lb-image" mode="out-in">
+            <img
+              :key="currentIndex"
+              :src="currentGallery[currentIndex]?.src"
+              class="lb-img"
+              alt="Photographie en grand format"
+            />
+          </Transition>
+          <p v-if="currentGallery.length > 1" class="lb-counter">
+            {{ currentIndex + 1 }} / {{ currentGallery.length }}
+          </p>
+        </div>
+
+        <button
+          v-if="currentGallery.length > 1"
+          class="lb-nav lb-nav--next"
+          @click.stop="nextImage"
+          aria-label="Image suivante"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M7 2L14 9L7 16" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -429,5 +523,135 @@ const entrepreneurPhotos = [
 
   .pf-gallery__header { gap: 0.75rem; }
   .pf-gallery__floral { display: none; }
+}
+</style>
+
+<style>
+/* ══════════════════════════════════════
+   LIGHTBOX (non scoped : injecté via Teleport dans <body>)
+══════════════════════════════════════ */
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(8, 14, 20, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lb-img {
+  max-width: 88vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  display: block;
+}
+
+.lb-counter {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.lb-close {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.35s ease;
+  z-index: 2;
+}
+
+.lb-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: rotate(90deg);
+}
+
+.lb-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  z-index: 2;
+}
+
+.lb-nav:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.lb-nav--prev { left: 2rem; }
+.lb-nav--prev:hover { transform: translateY(-50%) translateX(-4px); }
+
+.lb-nav--next { right: 2rem; }
+.lb-nav--next:hover { transform: translateY(-50%) translateX(4px); }
+
+/* Transition du fond */
+.lb-fade-enter-active,
+.lb-fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+.lb-fade-enter-from,
+.lb-fade-leave-to {
+  opacity: 0;
+}
+
+/* Transition de l'image (fondu + léger zoom, effet "ultra élégant") */
+.lb-image-enter-active {
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lb-image-leave-active {
+  transition: opacity 0.2s ease;
+}
+.lb-image-enter-from {
+  opacity: 0;
+  transform: scale(0.97);
+}
+.lb-image-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 700px) {
+  .lb-nav { width: 42px; height: 42px; }
+  .lb-nav--prev { left: 0.6rem; }
+  .lb-nav--next { right: 0.6rem; }
+  .lb-close { top: 1rem; right: 1rem; }
+  .lb-img { max-height: 70vh; }
 }
 </style>

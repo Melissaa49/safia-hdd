@@ -21,8 +21,7 @@ const form = reactive({
 
 const photoFormules = [
   { id: 'mariage-essentielle', label: 'Mariage — Formule Essentielle', desc: "Préparatifs · Mairie · Parc · Vin d'honneur", prix: 'à partir de 1 100 €' },
-  { id: 'mariage-complete', label: 'Mariage — Formule Complète', desc: 'Préparatifs · Mairie · Parc · Soirée', prix: 'à partir de 1 800 €' },
-  { id: 'autre', label: 'Autre demande', desc: 'Séance couple, maternité, portrait, famille…', prix: 'Sur devis' },
+  { id: 'autre', label: 'Autre demande', desc: 'Séance couple, maternité, portrait, famille, mariage sur-mesure…', prix: 'Sur devis' },
 ]
 
 const glowFormules = [
@@ -313,7 +312,7 @@ const stepIndex = computed(() => {
         </div>
         <div class="ct-aside__body">
           <span class="ct-aside__eyebrow">Me retrouver</span>
-          <h3 class="ct-aside__name">Safia HDD</h3>
+          <img src="/images/logo-safia-hdd.png" alt="Safia HDD Photographe & Formatrice" class="ct-aside__logo" />
           <p class="ct-aside__script">Photographe & Formatrice</p>
 
           <div class="ct-aside__sep" />
@@ -331,11 +330,16 @@ const stepIndex = computed(() => {
               <span class="ct-aside__dot">◯</span>
               <span>TVA BE 0455 025 614 — Belgique</span>
             </div>
-            <div class="ct-aside__item">
-              <span class="ct-aside__dot">◯</span>
-              <a href="https://www.instagram.com/safiamomentdevie" target="_blank" rel="noopener" class="ct-aside__link">@safiamomentdevie</a>
-            </div>
           </div>
+
+          <a href="https://www.instagram.com/safiamomentsdevie" target="_blank" rel="noopener" class="ct-aside__instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/>
+            </svg>
+            <span>@safiamomentsdevie</span>
+          </a>
 
           <div class="ct-aside__quote">
             <span class="ct-aside__qmark">"</span>
@@ -910,12 +914,12 @@ const stepIndex = computed(() => {
   color: var(--accent-dark);
 }
 
-.ct-aside__name {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1;
+.ct-aside__logo {
+  height: 34px;
+  width: auto;
+  max-width: 100%;
+  align-self: flex-start;
+  display: block;
 }
 
 .ct-aside__script {
@@ -960,6 +964,25 @@ const stepIndex = computed(() => {
 }
 
 .ct-aside__link:hover { border-color: var(--accent-dark); }
+
+.ct-aside__instagram {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--accent);
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.25rem;
+}
+
+.ct-aside__instagram:hover {
+  background: var(--accent);
+  color: var(--white);
+}
 
 .ct-aside__quote {
   background: var(--approche-cream);
