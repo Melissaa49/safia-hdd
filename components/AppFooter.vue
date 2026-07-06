@@ -3,7 +3,7 @@
     <div class="footer__inner">
 
       <div class="footer__brand">
-        <p class="footer__name">Safia HDD</p>
+        <p class="footer__name">Safia Moments de Vie</p>
         <p class="footer__sub">Photographe de mariage</p>
       </div>
 
@@ -13,7 +13,7 @@
       </div>
 
       <div class="footer__legal">
-        <p>© {{ new Date().getFullYear() }} Safia HDD — Tous droits réservés</p>
+        <p>© {{ new Date().getFullYear() }} Safia Moments de Vie — Tous droits réservés</p>
         <p>
           <NuxtLink to="/mentions-legales" class="footer__alerya">Mentions légales</NuxtLink>
         </p>
