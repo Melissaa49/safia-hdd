@@ -17,20 +17,20 @@ const approchePolaroids = [
 
 const collectionsImages = {
   Mariages: [
-    '/images/galery/mariage.jpg',
-    '/images/galery/mariage1.jpg',
+    '/images/galery/mariage11.jpg',
+    '/images/galery/mariage6.jpg',
     '/images/galery/mariage3.JPG',
     '/images/galery/mariage4.JPG',
     '/images/galery/mariage7.jpg',
-    '/images/galery/mariage10.jpg',
+    '/images/galery/mariage6.JPG',
   ],
   Brandshooting: [
-    '/images/galery/entrepreneur.jpg',
-    '/images/galery/entrepreneur2.jpg',
-    '/images/galery/entrepreneur3.jpg',
-    '/images/galery/entrepreneur4.jpg',
+    '/images/galery/entrepreneur6.jpg',
     '/images/galery/entrepreneur8.jpg',
-    '/images/galery/entrepreneur11.jpg',
+    '/images/galery/entrepreneur3.jpg',
+    '/images/galery/entrepreneur13.jpg',
+    '/images/galery/entrepreneur14.jpg',
+    '/images/galery/entrepreneur10.jpg',
   ],
 }
 
