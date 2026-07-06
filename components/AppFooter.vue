@@ -8,7 +8,7 @@
       </div>
 
       <div class="footer__info">
-        <p>Lille, France</p>
+        <p>Mouscron, Belgique</p>
         <p>6 ans d'expérience</p>
       </div>
 

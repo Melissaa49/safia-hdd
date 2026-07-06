@@ -6,53 +6,17 @@ useSeoMeta({
 
 const formules = [
   {
-    tag: 'Essentielle',
-    prix: '99',
-    periode: 'par mois · TVA incluse',
-    titre: 'Perfectionnement & Créativité',
-    desc: "Pour ceux qui maîtrisent déjà leurs réglages et souhaitent aller plus loin — cadrage, retouches, regard artistique.",
+    tag: 'Modulable',
+    prix: '1990',
+    from: true,
+    periode: 'Formation modulable · TVA incluse',
+    titre: 'Sur-Mesure',
+    desc: "Un accompagnement entièrement modulable, construit avec toi selon tes objectifs, ta disponibilité et ton rythme de progression.",
     items: [
-      '1 visio par mois — échange sur tes exercices',
-      'Accès à la plateforme (1 mois)',
-      'Travail sur le cadrage & la composition',
-      'Techniques de retouche avancées',
-      'Exercices pratiques ciblés',
-      'Feedback personnalisé',
-    ],
-    recommande: false,
-    highlight: false,
-  },
-  {
-    tag: 'Accompagnement',
-    prix: '399',
-    periode: "2 mois d'accès · TVA incluse",
-    titre: 'Débuter & Progresser',
-    desc: "Pour les débutants qui veulent des bases solides, un suivi régulier et des résultats visibles.",
-    items: [
-      '1 visio tous les 15 jours — échange sur tes exercices',
-      'Accès à la plateforme (2 mois)',
-      "Prise en main de l'appareil photo",
-      'Réglages manuels & composition',
-      'Apprentissage pas à pas',
-      'Suivi de ta progression',
-    ],
-    recommande: true,
-    highlight: false,
-  },
-  {
-    tag: 'Immersive',
-    prix: '1490',
-    periode: '3 mois complets · TVA incluse',
-    titre: 'Transformation Complète',
-    desc: "Pour les débutants déterminés — un suivi intensif pour transformer leur regard et leur pratique en profondeur.",
-    items: [
-      '1 visio par semaine — échange sur tes exercices',
-      'Accès à la plateforme (3 mois)',
-      'Exercices individualisés chaque semaine',
-      'Corrections & retours détaillés',
-      'Progression structurée sur 3 mois',
-      'Accompagnement prioritaire',
-      '1 journée en présentiel à Paris incluse',
+      'Programme construit sur-mesure avec Safia',
+      'Durée et rythme adaptés à tes besoins',
+      'Visios et suivi personnalisés',
+      'Accès à la plateforme de cours',
     ],
     recommande: false,
     highlight: true,
@@ -95,7 +59,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
           <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
         </svg>
         <p class="fm-intro__text">
-          Ces formules sont une base —
+          Cette formule est une base —
           <em>chaque parcours est entièrement personnalisable selon tes objectifs.</em>
         </p>
         <svg class="fm-intro__floral fm-intro__floral--flip" width="40" height="100" viewBox="0 0 40 100" fill="none">
@@ -115,6 +79,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
 
           <div class="fm-card__top">
             <span class="fm-card__tag">{{ f.tag }}</span>
+            <span v-if="f.from" class="fm-card__from">à partir de</span>
             <div class="fm-card__prix">
               <span class="fm-card__euro">€</span>
               <span class="fm-card__montant">{{ f.prix }}</span>
@@ -137,7 +102,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
         </div>
       </div>
 
-      <p class="fm-formules__paiement">◯ &nbsp; Paiement en 3 fois disponible pour toutes les formules</p>
+      <p class="fm-formules__paiement">◯ &nbsp; Paiement en 3 fois disponible</p>
     </section>
 
     <!-- INCLUS -->
@@ -158,7 +123,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
       <p class="fm-cta__eyebrow">Prête à transformer ta photographie ?</p>
       <h2 class="fm-cta__title">Trouvons ton parcours</h2>
       <p class="fm-cta__desc">
-        Ces formules sont une base de départ — je les adapte selon tes besoins,
+        Cette formule est une base de départ — je l'adapte selon tes besoins,
         ton matériel et tes objectifs. Contacte-moi pour qu'on construise
         ensemble le parcours qui te correspond.
       </p>
@@ -276,9 +241,9 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
 
 .fm-formules__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
-  max-width: 1100px;
+  max-width: 420px;
   margin: 0 auto;
   align-items: start;
 }
@@ -357,6 +322,13 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
   align-items: baseline;
   gap: 0.1rem;
   margin-top: 0.5rem;
+}
+
+.fm-card__from {
+  font-size: 0.68rem;
+  color: var(--text-light);
+  font-style: italic;
+  margin-top: 0.6rem;
 }
 
 .fm-card__euro {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Mentions Légales — Safia HDD Photographe',
-  description: "Mentions légales du site Safia HDD, photographe de mariage à Lille.",
+  description: "Mentions légales du site Safia HDD, photographe de mariage à Mouscron.",
 })
 </script>
 

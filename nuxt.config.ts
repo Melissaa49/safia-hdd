@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/sitemap'],
   app: {
     head: {
-      title: 'Safia HDD — Photographe de mariage à Lille',
+      title: 'Safia HDD — Photographe de mariage à Mouscron',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -37,9 +37,9 @@ export default defineNuxtConfig({
       '/formation',
       '/tarif',
       '/contact',
-      '/photographe-mariage-lille',
-      '/formation-photo-lille',
-      '/shooting-photo-glow-up-lille',
+      '/photographe-mariage-mouscron',
+      '/formation-photo-mouscron',
+      '/shooting-photo-glow-up-mouscron',
     ]
   },
 })

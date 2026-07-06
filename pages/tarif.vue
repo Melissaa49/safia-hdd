@@ -19,19 +19,6 @@ const mariageFormules = [
     highlight: false,
   },
   {
-    tag: 'Formule Complète',
-    prix: '1 800',
-    from: true,
-    desc: 'Pour capturer chaque moment de votre journée, du matin à la nuit.',
-    items: [
-      "Préparatifs de la mariée",
-      "Cérémonie à la mairie",
-      "Séance couple au parc",
-      "Soirée & dîner",
-    ],
-    highlight: true,
-  },
-  {
     tag: 'Sur devis',
     prix: null,
     from: false,
@@ -90,7 +77,7 @@ const glowUpFormules = [
     from: true,
     desc: "Pour un accompagnement complet et rapproché.",
     items: [
-      "1 journée complète en présentiel (Lille ou Paris)",
+      "1 journée complète en présentiel (Mouscron ou Paris)",
       "30 min de mentoring chaque semaine + exercices",
       "Accès à la plateforme d'échange & de cours",
       "Suivi quotidien via WhatsApp",
@@ -185,7 +172,7 @@ const calendlyUrl = 'https://calendly.com/safiamomentsdevie/30min'
         </div>
       </div>
 
-      <p class="tr-section__note">◯ &nbsp; Frais de déplacement inclus en région lilloise — sur devis au-delà</p>
+      <p class="tr-section__note">◯ &nbsp; Frais de déplacement inclus autour de Mouscron — sur devis au-delà</p>
     </section>
 
     <!-- SÉPARATEUR -->

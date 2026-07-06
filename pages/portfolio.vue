@@ -4,18 +4,40 @@ useSeoMeta({
   description: 'Découvrez mes reportages de mariages, couples, familles, grossesses et portraits.',
 })
 
-const featured = '/images/polaroid1.jpg'
+const featured = '/images/galery/mariage.jpg'
 
-const photos = [
-  { src: '/images/polaroid2.jpg', tall: true },
-  { src: '/images/polaroid3.jpg', tall: false },
-  { src: '/images/polaroid4.jpg', tall: false },
-  { src: '/images/polaroid5.jpg', tall: true },
-  { src: '/images/polaroid6.jpg', tall: false },
-  { src: '/images/polaroid7.jpg', tall: false },
-  { src: '/images/polaroid8.jpg', tall: false },
-  { src: '/images/polaroid9.jpg', tall: true },
-  { src: '/images/polaroid10.jpg', tall: false },
+const mariagePhotos = [
+  { src: '/images/galery/mariage1.jpg', tall: true },
+  { src: '/images/galery/mariage2.jpg', tall: false },
+  { src: '/images/galery/mariage3.JPG', tall: false },
+  { src: '/images/galery/mariage4.JPG', tall: true },
+  { src: '/images/galery/mariage5.JPG', tall: false },
+  { src: '/images/galery/mariage6.jpg', tall: false },
+  { src: '/images/galery/mariage6.JPG', tall: true },
+  { src: '/images/galery/mariage7.jpg', tall: false },
+  { src: '/images/galery/mariage8.jpg', tall: false },
+  { src: '/images/galery/mariage9.jpg', tall: true },
+  { src: '/images/galery/mariage10.jpg', tall: false },
+  { src: '/images/galery/mariage11.jpg', tall: false },
+]
+
+const entrepreneurPhotos = [
+  { src: '/images/galery/entrepreneur.jpg', tall: true },
+  { src: '/images/galery/entrepreneur2.jpg', tall: false },
+  { src: '/images/galery/entrepreneur3.jpg', tall: false },
+  { src: '/images/galery/entrepreneur4.jpg', tall: true },
+  { src: '/images/galery/entrepreneur5.jpg', tall: false },
+  { src: '/images/galery/entrepreneur6.jpg', tall: false },
+  { src: '/images/galery/entrepreneur7.jpg', tall: false },
+  { src: '/images/galery/entrepreneur8.jpg', tall: true },
+  { src: '/images/galery/entrepreneur9.jpg', tall: false },
+  { src: '/images/galery/entrepreneur10.jpg', tall: false },
+  { src: '/images/galery/entrepreneur11.jpg', tall: true },
+  { src: '/images/galery/entrepreneur12.jpg', tall: false },
+  { src: '/images/galery/entrepreneur13.jpg', tall: false },
+  { src: '/images/galery/entrepreneur14.jpg', tall: false },
+  { src: '/images/galery/entrepreneur15.jpg', tall: true },
+  { src: '/images/galery/entrepreneur16.jpg', tall: false },
 ]
 </script>
 
@@ -34,7 +56,7 @@ const photos = [
     <!-- À LA UNE -->
     <section class="pf-featured">
       <div class="pf-featured__arch">
-        <img :src="featured" alt="Photo à la une" />
+        <img :src="featured" alt="Photo à la une - mariage" />
       </div>
 
       <div class="pf-featured__text">
@@ -50,7 +72,7 @@ const photos = [
       </div>
     </section>
 
-    <!-- GALERIE -->
+    <!-- GALERIE MARIAGES -->
     <section class="pf-gallery">
 
       <div class="pf-gallery__header">
@@ -60,7 +82,7 @@ const photos = [
           <circle cx="22" cy="52" r="1.5" stroke="#c4a898" stroke-width="0.8" fill="none"/>
           <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
         </svg>
-        <h2 class="pf-gallery__title">Explorer les collections</h2>
+        <h2 class="pf-gallery__title">Mariages</h2>
         <svg class="pf-gallery__floral pf-gallery__floral--flip" width="40" height="100" viewBox="0 0 40 100" fill="none">
           <path d="M20 100 C20 75 10 62 14 40 C17 22 12 8 20 0" stroke="#c4a898" stroke-width="1" fill="none"/>
           <circle cx="12" cy="38" r="2" stroke="#c4a898" stroke-width="0.8" fill="none"/>
@@ -71,12 +93,44 @@ const photos = [
 
       <div class="pf-gallery__grid">
         <div
-          v-for="(photo, i) in photos"
-          :key="i"
+          v-for="(photo, i) in mariagePhotos"
+          :key="'mariage-' + i"
           class="pf-item"
           :class="{ 'pf-item--tall': photo.tall }"
         >
-          <img :src="photo.src" alt="Photographie de mariage" />
+          <img :src="photo.src" alt="Photographie de mariage" loading="lazy" />
+        </div>
+      </div>
+
+    </section>
+
+    <!-- GALERIE ENTREPRENEURS -->
+    <section class="pf-gallery pf-gallery--alt">
+
+      <div class="pf-gallery__header">
+        <svg class="pf-gallery__floral" width="40" height="100" viewBox="0 0 40 100" fill="none">
+          <path d="M20 100 C20 75 10 62 14 40 C17 22 12 8 20 0" stroke="#c4a898" stroke-width="1" fill="none"/>
+          <circle cx="12" cy="38" r="2" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+          <circle cx="22" cy="52" r="1.5" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+          <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+        </svg>
+        <h2 class="pf-gallery__title">Portraits & Entrepreneurs</h2>
+        <svg class="pf-gallery__floral pf-gallery__floral--flip" width="40" height="100" viewBox="0 0 40 100" fill="none">
+          <path d="M20 100 C20 75 10 62 14 40 C17 22 12 8 20 0" stroke="#c4a898" stroke-width="1" fill="none"/>
+          <circle cx="12" cy="38" r="2" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+          <circle cx="22" cy="52" r="1.5" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+          <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="pf-gallery__grid">
+        <div
+          v-for="(photo, i) in entrepreneurPhotos"
+          :key="'entrepreneur-' + i"
+          class="pf-item"
+          :class="{ 'pf-item--tall': photo.tall }"
+        >
+          <img :src="photo.src" alt="Portrait professionnel entrepreneur" loading="lazy" />
         </div>
       </div>
 
@@ -219,6 +273,10 @@ const photos = [
 .pf-gallery {
   padding: 5rem 3rem;
   background: var(--cream);
+}
+
+.pf-gallery--alt {
+  background: var(--approche-cream);
 }
 
 .pf-gallery__header {

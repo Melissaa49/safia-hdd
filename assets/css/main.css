@@ -49,26 +49,20 @@ img { display: block; max-width: 100%; }
 
 .header__logo {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
   line-height: 1;
 }
 
-.header__logo-name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
+.header__logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
 }
 
-.header__logo-sub {
-  font-size: 0.58rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--text-light);
-  font-weight: 300;
+@media (max-width: 768px) {
+  .header__logo-img {
+    height: 36px;
+  }
 }
 
 .header__nav {

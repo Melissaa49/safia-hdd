@@ -1,15 +1,15 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Formation Photo Lille & Paris — Apprendre la Photographie | Safia HDD',
-  description: "Formation en ligne à la photographie avec Safia HDD, formatrice basée à Lille et Paris. Coaching personnalisé, visios en direct, progression garantie. Formules dès 199 €.",
-  ogTitle: 'Formation Photo Lille & Paris — Safia HDD Formatrice',
-  ogDescription: "Apprenez la photographie avec Safia, formatrice entre Lille et Paris. Coaching 100% en ligne, adapté à votre niveau, dès 199 €.",
+  title: 'Formation Photo Mouscron & Paris — Apprendre la Photographie | Safia HDD',
+  description: "Formation en ligne à la photographie avec Safia HDD, formatrice basée à Mouscron et Paris. Coaching personnalisé, visios en direct, progression garantie. Formules dès 199 €.",
+  ogTitle: 'Formation Photo Mouscron & Paris — Safia HDD Formatrice',
+  ogDescription: "Apprenez la photographie avec Safia, formatrice entre Mouscron et Paris. Coaching 100% en ligne, adapté à votre niveau, dès 199 €.",
   ogImage: '/images/polaroid2.jpg',
   twitterCard: 'summary_large_image',
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: 'https://www.safiamomentdevie.com/formation-photo-lille' }],
+  link: [{ rel: 'canonical', href: 'https://www.safiamomentdevie.com/formation-photo-mouscron' }],
   script: [
     {
       type: 'application/ld+json',
@@ -18,12 +18,12 @@ useHead({
         '@type': 'EducationalOrganization',
         name: 'Safia Moments de Vie — Formation Photo',
         description: "Formation en ligne à la photographie, coaching personnalisé en visioconférence.",
-        url: 'https://www.safiamomentdevie.com/formation-photo-lille',
+        url: 'https://www.safiamomentdevie.com/formation-photo-mouscron',
         address: {
           '@type': 'PostalAddress',
-          addressLocality: 'Lille',
+          addressLocality: 'Mouscron',
           addressRegion: 'Hauts-de-France',
-          addressCountry: 'FR',
+          addressCountry: 'BE',
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
@@ -68,13 +68,13 @@ const faq = [
 
     <section class="sp-hero">
       <div class="sp-hero__content">
-        <span class="sp-hero__eyebrow">100% en ligne · Lille · Paris</span>
-        <h1 class="sp-hero__title">Formation Photo<br>à Lille & Paris</h1>
+        <span class="sp-hero__eyebrow">100% en ligne · Mouscron · Paris</span>
+        <h1 class="sp-hero__title">Formation Photo<br>à Mouscron & Paris</h1>
         <p class="sp-hero__subtitle">Révèle ton regard de photographe.</p>
         <p class="sp-hero__desc">
           Safia HDD propose un coaching photo personnalisé en visioconférence,
           pour apprendre la photographie à ton rythme, quel que soit ton niveau.
-          Basée entre Lille et Paris, disponible partout en France.
+          Basée entre Mouscron et Paris, disponible partout en France.
         </p>
         <div class="sp-hero__ctas">
           <NuxtLink to="/formation" class="sp-btn sp-btn--primary">Voir les formules →</NuxtLink>
@@ -83,7 +83,7 @@ const faq = [
       </div>
       <div class="sp-hero__image">
         <div class="sp-hero__arch">
-          <img src="/images/polaroid2.jpg" alt="Formation photo Lille Paris - Safia HDD formatrice" />
+          <img src="/images/polaroid2.jpg" alt="Formation photo Mouscron Paris - Safia HDD formatrice" />
         </div>
       </div>
     </section>
@@ -97,9 +97,9 @@ const faq = [
           <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
         </svg>
         <div class="sp-intro__text">
-          <h2 class="sp-intro__title">Apprendre la photographie avec une professionnelle entre Lille et Paris</h2>
+          <h2 class="sp-intro__title">Apprendre la photographie avec une professionnelle entre Mouscron et Paris</h2>
           <p>
-            Photographe professionnelle depuis 6 ans, active entre Lille et Paris,
+            Photographe professionnelle depuis 6 ans, active entre Mouscron et Paris,
             Safia HDD partage son savoir-faire à travers des formations photo en ligne
             accessibles à tous. Les programmes Glow Up en Photo vous accompagnent de la
             prise en main de votre appareil jusqu'à la retouche Lightroom.
@@ -107,7 +107,7 @@ const faq = [
           <p>
             Les formations se déroulent entièrement à distance, en visioconférence individuelle,
             avec des exercices pratiques personnalisés entre chaque session.
-            La journée présentielle de la formule Premium peut avoir lieu à Lille ou à Paris.
+            La journée présentielle de la formule Premium peut avoir lieu à Mouscron ou à Paris.
           </p>
         </div>
         <svg class="sp-intro__floral sp-intro__floral--flip" width="40" height="100" viewBox="0 0 40 100" fill="none">
@@ -170,7 +170,7 @@ const faq = [
           <span class="sp-card__tag">Glow Up Premium</span>
           <p class="sp-card__prix">à partir de <strong>1 890 €</strong> <span>TVAC · 3 mois</span></p>
           <ul class="sp-card__list">
-            <li>1 journée présentiel à Lille ou Paris</li>
+            <li>1 journée présentiel à Mouscron ou Paris</li>
             <li>30 min de mentoring par semaine</li>
             <li>Suivi quotidien WhatsApp</li>
             <li>Retouche Lightroom incluse</li>

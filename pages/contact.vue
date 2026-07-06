@@ -26,9 +26,7 @@ const photoFormules = [
 ]
 
 const glowFormules = [
-  { id: 'starter', label: 'Glow Up Starter', desc: '1 mois de suivi', prix: '199 € TVAC' },
-  { id: 'mentoring', label: 'Glow Up Mentoring', desc: '2 mois de suivi', prix: '497 € TVAC' },
-  { id: 'premium', label: 'Glow Up Premium', desc: '3 mois de suivi', prix: 'à partir de 1 890 € TVAC' },
+  { id: 'modulable', label: 'Formation Modulable', desc: 'Programme sur-mesure adapté à vos besoins', prix: 'à partir de 1 990 € TVAC' },
 ]
 
 const currentFormules = computed(() =>
@@ -44,8 +42,14 @@ const submitError = ref('')
 
 function selectType(type: 'photo' | 'formation') {
   selectedType.value = type
-  selectedFormule.value = null
-  step.value = 'formule'
+  if (type === 'formation') {
+    // Une seule formule modulable : on saute l'étape de sélection
+    selectedFormule.value = 'modulable'
+    step.value = 'details'
+  } else {
+    selectedFormule.value = null
+    step.value = 'formule'
+  }
 }
 
 function selectFormule(id: string) {
@@ -59,7 +63,9 @@ function goToDetails() {
 
 function goBack() {
   if (step.value === 'formule') step.value = 'type'
-  if (step.value === 'details') step.value = 'formule'
+  if (step.value === 'details') {
+    step.value = selectedType.value === 'formation' ? 'type' : 'formule'
+  }
 }
 
 async function submitForm() {
@@ -203,7 +209,7 @@ const stepIndex = computed(() => {
                 </div>
                 <div class="ct-type__body">
                   <span class="ct-type__label">Formation</span>
-                  <span class="ct-type__sub">Glow Up en Photo · Coaching · Mentoring</span>
+                  <span class="ct-type__sub">Formation modulable · Coaching sur-mesure</span>
                   <span class="ct-type__arrow">Choisir →</span>
                 </div>
               </button>
@@ -273,7 +279,14 @@ const stepIndex = computed(() => {
 
               <div class="ct-field">
                 <label class="ct-field__label">Votre message *</label>
-                <textarea v-model="form.message" class="ct-field__textarea" rows="5" placeholder="Parlez-moi de votre projet, vos attentes, vos questions…" />
+                <textarea
+                  v-model="form.message"
+                  class="ct-field__textarea"
+                  rows="5"
+                  :placeholder="selectedType === 'formation'
+                    ? 'Décrivez votre niveau actuel, vos objectifs, votre matériel et vos disponibilités pour qu\'on construise ensemble le programme adapté…'
+                    : 'Parlez-moi de votre projet, vos attentes, vos questions…'"
+                />
               </div>
 
               <p class="ct-fields__required">* Champs obligatoires</p>
@@ -308,7 +321,7 @@ const stepIndex = computed(() => {
           <div class="ct-aside__items">
             <div class="ct-aside__item">
               <span class="ct-aside__dot">◯</span>
-              <span>Lille, France</span>
+              <span>Mouscron, Belgique</span>
             </div>
             <div class="ct-aside__item">
               <span class="ct-aside__dot">◯</span>

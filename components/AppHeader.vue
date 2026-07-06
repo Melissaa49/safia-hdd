@@ -20,8 +20,13 @@ watch(() => route.path, () => {
 <template>
   <header class="header">
     <NuxtLink to="/" class="header__logo">
-      <span class="header__logo-name">SAFIA HDD</span>
-      <span class="header__logo-sub">Photographe</span>
+      <img
+        src="/images/logo-safia-hdd.png"
+        alt="Safia HDD Photographe"
+        width="158"
+        height="50"
+        class="header__logo-img"
+      />
     </NuxtLink>
 
     <nav>

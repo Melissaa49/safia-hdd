@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'À Propos — Safia HDD Photographe',
-  description: "Photographe de mariage basée à Lille, avec 6 ans d'expérience pour immortaliser vos plus beaux instants.",
+  description: "Photographe de mariage basée à Mouscron, avec 6 ans d'expérience pour immortaliser vos plus beaux instants.",
 })
 </script>
 
@@ -39,7 +39,7 @@ useSeoMeta({
         <h2 class="ap-intro__title">Bonjour, je suis Safia</h2>
         <p class="ap-intro__script">Raconter l'essentiel.</p>
         <p class="ap-intro__desc">
-          Basée à Lille, je suis photographe de mariage depuis 6 ans.
+          Basée à Mouscron, je suis photographe de mariage depuis 6 ans.
           Mon travail repose sur une conviction profonde : les plus belles
           photos ne se posent pas, elles se vivent.
         </p>

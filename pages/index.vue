@@ -4,23 +4,37 @@ useSeoMeta({
   description: 'Photographe de mariage en France. Des souvenirs sincères, des émotions vraies, immortalisées avec douceur et authenticité.',
 })
 
-const tabs = ['Mariages', 'Couples', 'Familles', 'Grossesses', 'Portraits', 'Éditorial']
+const tabs = ['Mariages', 'Brandshooting']
 const activeTab = ref('Mariages')
 
 const heroImg = '/images/polaroid1.jpg'
+
 const approchePolaroids = [
-  '/images/polaroid4.jpg',
-  '/images/polaroid2.jpg',
-  '/images/polaroid9.jpg',
+  '/images/galery/mariage5.JPG',
+  '/images/galery/entrepreneur6.jpg',
+  '/images/galery/mariage9.jpg',
 ]
-const galleryImgs = [
-  '/images/polaroid3.jpg',
-  '/images/polaroid5.jpg',
-  '/images/polaroid6.jpg',
-  '/images/polaroid8.jpg',
-  '/images/polaroid11.jpg',
-  '/images/polaroid10.jpg',
-]
+
+const collectionsImages = {
+  Mariages: [
+    '/images/galery/mariage.jpg',
+    '/images/galery/mariage1.jpg',
+    '/images/galery/mariage3.JPG',
+    '/images/galery/mariage4.JPG',
+    '/images/galery/mariage7.jpg',
+    '/images/galery/mariage10.jpg',
+  ],
+  Brandshooting: [
+    '/images/galery/entrepreneur.jpg',
+    '/images/galery/entrepreneur2.jpg',
+    '/images/galery/entrepreneur3.jpg',
+    '/images/galery/entrepreneur4.jpg',
+    '/images/galery/entrepreneur8.jpg',
+    '/images/galery/entrepreneur11.jpg',
+  ],
+}
+
+const galleryImgs = computed(() => collectionsImages[activeTab.value as keyof typeof collectionsImages])
 </script>
 
 <template>
@@ -99,7 +113,7 @@ const galleryImgs = [
     </div>
 
     <div class="collections__grid">
-      <div v-for="(img, i) in galleryImgs" :key="i" class="collections__item">
+      <div v-for="(img, i) in galleryImgs" :key="activeTab + '-' + i" class="collections__item">
         <img :src="img" :alt="'Photo ' + activeTab + ' ' + (i + 1)" />
       </div>
     </div>

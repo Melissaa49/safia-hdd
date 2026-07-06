@@ -1,36 +1,36 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Shooting Photo Glow Up Lille & Paris — Séance Photo Personnalisée | Safia HDD',
-  description: "Séance photo Glow Up à Lille et Paris avec Safia HDD. Shooting portrait, couple ou lifestyle personnalisé pour révéler votre meilleure version. Réservez en ligne.",
-  ogTitle: 'Shooting Photo Glow Up Lille & Paris — Safia HDD',
-  ogDescription: "Séance photo personnalisée à Lille et Paris. Shooting portrait, couple ou lifestyle avec Safia HDD. Révélez votre meilleure version.",
+  title: 'Shooting Photo Glow Up Mouscron & Paris — Séance Photo Personnalisée | Safia HDD',
+  description: "Séance photo Glow Up à Mouscron et Paris avec Safia HDD. Shooting portrait, couple ou lifestyle personnalisé pour révéler votre meilleure version. Réservez en ligne.",
+  ogTitle: 'Shooting Photo Glow Up Mouscron & Paris — Safia HDD',
+  ogDescription: "Séance photo personnalisée à Mouscron et Paris. Shooting portrait, couple ou lifestyle avec Safia HDD. Révélez votre meilleure version.",
   ogImage: '/images/polaroid3.jpg',
   twitterCard: 'summary_large_image',
 })
 
 useHead({
-  link: [{ rel: 'canonical', href: 'https://www.safiamomentdevie.com/shooting-photo-glow-up-lille' }],
+  link: [{ rel: 'canonical', href: 'https://www.safiamomentdevie.com/shooting-photo-glow-up-mouscron' }],
   script: [
     {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Shooting Photo Glow Up Lille & Paris',
-        description: "Séance photo portrait, couple et lifestyle personnalisée à Lille et Paris avec Safia HDD.",
+        name: 'Shooting Photo Glow Up Mouscron & Paris',
+        description: "Séance photo portrait, couple et lifestyle personnalisée à Mouscron et Paris avec Safia HDD.",
         provider: {
           '@type': 'LocalBusiness',
           name: 'Safia Moments de Vie — Photographe',
           url: 'https://www.safiamomentdevie.com',
           address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Lille',
+            addressLocality: 'Mouscron',
             addressRegion: 'Hauts-de-France',
-            addressCountry: 'FR',
+            addressCountry: 'BE',
           },
         },
         areaServed: [
-          { '@type': 'City', name: 'Lille' },
+          { '@type': 'City', name: 'Mouscron' },
           { '@type': 'City', name: 'Paris' },
           { '@type': 'City', name: 'Arras' },
           { '@type': 'City', name: 'Amiens' },
@@ -51,7 +51,7 @@ useHead({
 const faq = [
   {
     q: "Où se déroule le shooting Glow Up ?",
-    a: "Je réalise des shootings à Lille (Vieux-Lille, parc de la Citadelle, bords de la Deûle) et à Paris (bois de Boulogne, Marais, bords de Seine), ainsi que sur tout l'axe entre les deux villes.",
+    a: "Je réalise des shootings à Mouscron (centre-ville, parcs et espaces verts locaux) et à Paris (bois de Boulogne, Marais, bords de Seine), ainsi que sur tout l'axe entre les deux villes.",
   },
   {
     q: "Combien de temps dure la séance ?",
@@ -66,8 +66,8 @@ const faq = [
     a: "Votre galerie retouchée vous est livrée sous 3 à 4 semaines via un lien privé. Vous pouvez télécharger toutes les images en haute résolution.",
   },
   {
-    q: "Intervenez-vous entre Lille et Paris ?",
-    a: "Oui, j'interviens sur tout l'axe Lille–Paris : Arras, Lens, Douai, Amiens, Compiègne et les alentours. Contactez-moi pour un devis incluant les frais de déplacement.",
+    q: "Intervenez-vous entre Mouscron et Paris ?",
+    a: "Oui, j'interviens sur tout l'axe Mouscron–Paris : Arras, Lens, Douai, Amiens, Compiègne et les alentours. Contactez-moi pour un devis incluant les frais de déplacement.",
   },
 ]
 
@@ -95,11 +95,11 @@ const prestations = [
 
     <section class="sp-hero">
       <div class="sp-hero__content">
-        <span class="sp-hero__eyebrow">Lille · Paris · Arras · Amiens · Compiègne</span>
-        <h1 class="sp-hero__title">Shooting Photo<br>Glow Up<br>Lille & Paris</h1>
+        <span class="sp-hero__eyebrow">Mouscron · Paris · Arras · Amiens · Compiègne</span>
+        <h1 class="sp-hero__title">Shooting Photo<br>Glow Up<br>Mouscron & Paris</h1>
         <p class="sp-hero__subtitle">Révélez votre meilleure version.</p>
         <p class="sp-hero__desc">
-          Safia HDD réalise des séances photo personnalisées à Lille, Paris
+          Safia HDD réalise des séances photo personnalisées à Mouscron, Paris
           et sur tout l'axe entre les deux villes — portrait, couple, lifestyle.
           Des images sincères qui vous ressemblent.
         </p>
@@ -110,7 +110,7 @@ const prestations = [
       </div>
       <div class="sp-hero__image">
         <div class="sp-hero__arch">
-          <img src="/images/polaroid3.jpg" alt="Shooting photo Glow Up Lille Paris - Safia HDD" />
+          <img src="/images/polaroid3.jpg" alt="Shooting photo Glow Up Mouscron Paris - Safia HDD" />
         </div>
       </div>
     </section>
@@ -124,14 +124,14 @@ const prestations = [
           <circle cx="11" cy="62" r="1.8" stroke="#c4a898" stroke-width="0.8" fill="none"/>
         </svg>
         <div class="sp-intro__text">
-          <h2 class="sp-intro__title">Séances photo Glow Up à Lille, Paris et entre les deux</h2>
+          <h2 class="sp-intro__title">Séances photo Glow Up à Mouscron, Paris et entre les deux</h2>
           <p>
             Le shooting Glow Up est bien plus qu'une simple séance photo.
             C'est une expérience pensée pour vous mettre en valeur avec authenticité —
             dans un cadre qui vous correspond, avec des images qui racontent qui vous êtes.
           </p>
           <p>
-            Photographe professionnelle active entre Lille et Paris depuis 6 ans, Safia HDD
+            Photographe professionnelle active entre Mouscron et Paris depuis 6 ans, Safia HDD
             vous accompagne de la préparation jusqu'à la livraison de votre galerie.
             Arras, Lens, Douai, Amiens, Compiègne — je me déplace sur tout le corridor nord-parisien.
           </p>
@@ -152,7 +152,7 @@ const prestations = [
       </div>
       <div class="sp-stats__divider" />
       <div class="sp-stats__item">
-        <span class="sp-stats__number">Lille<br>& Paris</span>
+        <span class="sp-stats__number">Mouscron<br>& Paris</span>
         <span class="sp-stats__label">& tout l'axe</span>
       </div>
       <div class="sp-stats__divider" />
@@ -171,7 +171,7 @@ const prestations = [
       <div class="sp-prestations__grid">
         <div v-for="p in prestations" :key="p.titre" class="sp-pres-card">
           <div class="sp-pres-card__arch">
-            <img :src="p.img" :alt="p.titre + ' Lille Paris - Safia HDD'" />
+            <img :src="p.img" :alt="p.titre + ' Mouscron Paris - Safia HDD'" />
           </div>
           <div class="sp-pres-card__body">
             <h3 class="sp-pres-card__titre">{{ p.titre }}</h3>
@@ -233,7 +233,7 @@ const prestations = [
     </section>
 
     <section class="sp-cta">
-      <p class="sp-cta__eyebrow">Shooting photo à Lille & Paris</p>
+      <p class="sp-cta__eyebrow">Shooting photo à Mouscron & Paris</p>
       <h2 class="sp-cta__title">Réservons votre séance</h2>
       <p class="sp-cta__subtitle">Votre meilleure version vous attend.</p>
       <p class="sp-cta__desc">Devis gratuit — réponse sous 48h.</p>
