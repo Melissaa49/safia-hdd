@@ -11,7 +11,7 @@ const heroImg = '/images/polaroid1.jpg'
 
 const approchePolaroids = [
   '/images/polaroid4.jpg',
-  '/images/galery/entrepreneur6.jpg',
+  '/images/galery/mariage6.jpg',
   '/images/galery/mariage9.jpg',
 ]
 
