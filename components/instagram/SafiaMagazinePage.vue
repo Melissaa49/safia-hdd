@@ -98,7 +98,7 @@ defineProps<{ page: SpreadPage }>()
           <circle cx="12" cy="12" r="4.5" stroke="#a8897a" stroke-width="1.2"/>
           <circle cx="17.5" cy="6.5" r="1" fill="#a8897a"/>
         </svg>
-        <a href="https://www.instagram.com/safia.moments.de.vie" target="_blank" rel="noopener" class="smp-back__handle">
+        <a href="https://www.instagram.com/safiamomentsdevie" target="_blank" rel="noopener" class="smp-back__handle">
           @safiamomentsdevie
         </a>
         <p class="smp-back__cta">Rejoignez ma communauté</p>
