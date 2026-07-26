@@ -38,7 +38,7 @@ defineProps<{ page: SpreadPage }>()
           <circle cx="12" cy="12" r="4.5" stroke="#a8897a" stroke-width="1.2"/>
           <circle cx="17.5" cy="6.5" r="1" fill="#a8897a"/>
         </svg>
-        <p class="smp-cover__handle">@safia.moments.de.vie</p>
+        <p class="smp-cover__handle">@safiamomentsdevie</p>
       </div>
     </div>
 
@@ -49,7 +49,7 @@ defineProps<{ page: SpreadPage }>()
       </div>
       <div class="smp-large__meta">
         <div class="smp-large__row">
-          <span class="smp-large__handle">@safia.moments.de.vie</span>
+          <span class="smp-large__handle">@safiamomentsdevie</span>
           <span class="smp-large__date">{{ page.post.date }}</span>
         </div>
         <p class="smp-large__caption">{{ page.post.caption }}</p>
