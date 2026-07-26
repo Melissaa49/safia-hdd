@@ -28,6 +28,11 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY,
     contactToEmail: process.env.CONTACT_TO_EMAIL || 'safiamomentsdevie@gmail.com',
     contactFromEmail: process.env.CONTACT_FROM_EMAIL,
+    instagramAccessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
+    instagramUserId: process.env.INSTAGRAM_USER_ID,
+    public: {
+      instagramUrl: process.env.NUXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/safiamomentsdevie/',
+    },
   },
   sitemap: {
     urls: [

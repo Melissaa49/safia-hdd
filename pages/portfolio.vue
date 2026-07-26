@@ -177,6 +177,9 @@ watch(lightboxOpen, (open) => {
 
     </section>
 
+    <!-- MAGAZINE INSTAGRAM -->
+    <InstagramMagazine />
+
     <!-- CTA -->
     <section class="pf-cta">
       <p class="pf-cta__eyebrow">Votre histoire mérite d'être racontée</p>
@@ -363,7 +366,7 @@ watch(lightboxOpen, (open) => {
    GALERIE
 ══════════════════════════════════════ */
 .pf-gallery {
-  padding: 5rem 3rem;
+  padding: 4rem 2rem;
   background: var(--cream);
 }
 
@@ -400,8 +403,10 @@ watch(lightboxOpen, (open) => {
 
 /* Grille en masonry : chaque image garde son ratio naturel, rien n'est coupé */
 .pf-gallery__grid {
-  column-count: 3;
-  column-gap: 1rem;
+  column-count: 4;
+  column-gap: 0.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .pf-item {
@@ -409,9 +414,12 @@ watch(lightboxOpen, (open) => {
   overflow: hidden;
   cursor: pointer;
   break-inside: avoid;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   border-radius: 2px;
+  transition: opacity 0.2s ease;
 }
+
+.pf-item:hover { opacity: 0.92; }
 
 .pf-item img {
   width: 100%;
@@ -501,7 +509,7 @@ watch(lightboxOpen, (open) => {
   .pf-gallery { padding: 3rem 1.5rem; }
 
   .pf-gallery__grid {
-    column-count: 2;
+    column-count: 3;
   }
 
   .pf-cta { padding: 4rem 1.5rem; }
