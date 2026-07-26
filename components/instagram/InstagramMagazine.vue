@@ -253,7 +253,7 @@ onUnmounted(() => {
 
     <!-- ── Lien Instagram ─────────────────────────── -->
     <div class="igm__ig-link">
-      <a href="https://www.instagram.com/safia.moments.de.vie" target="_blank" rel="noopener noreferrer" class="igm__ig-btn">
+      <a href="https://www.instagram.com/safiamomentsdevie" target="_blank" rel="noopener noreferrer" class="igm__ig-btn">
         <svg viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
           <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.3"/>
           <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.3"/>
