@@ -74,10 +74,18 @@ const allPages = computed<SpreadPage[]>(() =>
 const spread      = ref(0)
 const animState   = ref<{ dir: 'next' | 'prev'; from: number; to: number; active: boolean } | null>(null)
 const mobilePage  = ref(0)  // index dans allPages pour le mode mobile
+const mobileAnim  = ref<{ dir: 'next' | 'prev'; from: number; to: number; active: boolean } | null>(null)
+const touchStartX = ref<number | null>(null)
+const touchStartY = ref<number | null>(null)
 const bookScale   = ref(1)  // facteur d'échelle du livre
-const isMobile    = ref(false) // < 480px → page unique, pas de flip
+const isMobile    = ref(false) // < 640px → page unique avec flip tactile
 
-watch(posts, () => { spread.value = 0; animState.value = null; mobilePage.value = 0 })
+watch(posts, () => {
+  spread.value = 0
+  animState.value = null
+  mobilePage.value = 0
+  mobileAnim.value = null
+})
 
 // ── Calcul de l'échelle responsive ────────────────────────────────────
 const BOOK_W = 680
@@ -155,10 +163,72 @@ function goPrev() {
   })))
 }
 
-// ── Navigation page unique (mobile) ───────────────────────────────────
+// ── Navigation page unique avec retournement (mobile) ─────────────────
 const currentMobilePage = computed<SpreadPage>(() => allPages.value[mobilePage.value] ?? FB)
-function mobileNext() { if (mobilePage.value < allPages.value.length - 1) mobilePage.value++ }
-function mobilePrev() { if (mobilePage.value > 0) mobilePage.value-- }
+const mobileBackgroundPage = computed<SpreadPage>(() => {
+  if (!mobileAnim.value) return currentMobilePage.value
+  return allPages.value[mobileAnim.value.to] ?? currentMobilePage.value
+})
+const mobileFlipFront = computed<SpreadPage>(() => {
+  if (!mobileAnim.value) return currentMobilePage.value
+  return allPages.value[mobileAnim.value.from] ?? currentMobilePage.value
+})
+const mobileFlipBack = computed<SpreadPage>(() => {
+  if (!mobileAnim.value) return currentMobilePage.value
+  return allPages.value[mobileAnim.value.to] ?? currentMobilePage.value
+})
+const mobileFlipStyle = computed(() => {
+  const anim = mobileAnim.value
+  if (!anim) return {}
+  return {
+    transform: anim.active
+      ? (anim.dir === 'next' ? 'rotateY(-180deg)' : 'rotateY(180deg)')
+      : 'rotateY(0deg)',
+    transformOrigin: anim.dir === 'next' ? 'left center' : 'right center',
+  }
+})
+
+function runMobileFlip(dir: 'next' | 'prev') {
+  if (mobileAnim.value) return
+
+  const from = mobilePage.value
+  const to = dir === 'next' ? from + 1 : from - 1
+  if (to < 0 || to >= allPages.value.length) return
+
+  mobileAnim.value = { dir, from, to, active: false }
+  nextTick(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (mobileAnim.value) mobileAnim.value.active = true
+    window.setTimeout(() => {
+      mobilePage.value = to
+      mobileAnim.value = null
+    }, 580)
+  })))
+}
+
+function mobileNext() { runMobileFlip('next') }
+function mobilePrev() { runMobileFlip('prev') }
+
+function onTouchStart(e: TouchEvent) {
+  const touch = e.changedTouches[0]
+  if (!touch || mobileAnim.value) return
+  touchStartX.value = touch.clientX
+  touchStartY.value = touch.clientY
+}
+
+function onTouchEnd(e: TouchEvent) {
+  const touch = e.changedTouches[0]
+  if (!touch || touchStartX.value === null || touchStartY.value === null) return
+
+  const deltaX = touch.clientX - touchStartX.value
+  const deltaY = touch.clientY - touchStartY.value
+  touchStartX.value = null
+  touchStartY.value = null
+
+  // Le geste horizontal doit être net pour ne pas gêner le scroll vertical.
+  if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.15) return
+  if (deltaX < 0) mobileNext()
+  else mobilePrev()
+}
 
 function onKeydown(e: KeyboardEvent) {
   if (isMobile.value) {
@@ -239,16 +309,38 @@ onUnmounted(() => {
       <p class="igm__hint">Cliquez sur les pages ou utilisez ← →</p>
     </div>
 
-    <!-- ── Magazine page unique (< 480px) ──────────── -->
+    <!-- ── Magazine page unique avec flip tactile (< 640px) ──────────── -->
     <div v-else class="igm__single">
-      <div class="igm__single-page">
-        <SafiaMagazinePage :page="currentMobilePage" />
+      <div
+        class="igm__single-page"
+        :class="{ 'igm__single-page--animating': !!mobileAnim }"
+        @touchstart.passive="onTouchStart"
+        @touchend.passive="onTouchEnd"
+      >
+        <div class="igm__mobile-background">
+          <SafiaMagazinePage :page="mobileBackgroundPage" />
+        </div>
+
+        <div v-if="mobileAnim" class="igm__mobile-flip" :style="mobileFlipStyle">
+          <div class="igm__mobile-face igm__mobile-face--front">
+            <SafiaMagazinePage :page="mobileFlipFront" />
+          </div>
+          <div class="igm__mobile-face igm__mobile-face--back">
+            <SafiaMagazinePage :page="mobileFlipBack" />
+          </div>
+        </div>
       </div>
       <nav class="igm__single-nav">
-        <button class="igm__nav-btn" :disabled="mobilePage === 0" @click="mobilePrev">←</button>
+        <button class="igm__nav-btn" :disabled="mobilePage === 0 || !!mobileAnim" @click="mobilePrev" aria-label="Page précédente">←</button>
         <span class="igm__single-counter">{{ mobilePage + 1 }} / {{ allPages.length }}</span>
-        <button class="igm__nav-btn igm__nav-btn--active" :disabled="mobilePage >= allPages.length - 1" @click="mobileNext">→</button>
+        <button
+          class="igm__nav-btn igm__nav-btn--active"
+          :disabled="mobilePage >= allPages.length - 1 || !!mobileAnim"
+          @click="mobileNext"
+          aria-label="Page suivante"
+        >→</button>
       </nav>
+      <p class="igm__swipe-hint">Glissez pour tourner la page</p>
     </div>
 
     <!-- ── Lien Instagram ─────────────────────────── -->
@@ -322,7 +414,7 @@ onUnmounted(() => {
 .igm__dot--active { background: var(--accent-dark, #a8897a); }
 .igm__hint { margin-top: 8px; font-size: 0.55rem; color: var(--text-light, #6b5c52); letter-spacing: 0.1em; opacity: 0.7; }
 
-/* ── Mode page unique (mobile < 480px) ────────────── */
+/* ── Mode page unique avec retournement mobile ────── */
 .igm__single { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 
 .igm__single-page {
@@ -335,10 +427,50 @@ onUnmounted(() => {
   overflow: hidden;
   border-radius: 1px;
   outline: 1px solid rgba(184, 152, 128, 0.15);
+  position: relative;
+  perspective: 1500px;
+  isolation: isolate;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.igm__single-page--animating {
+  pointer-events: none;
+}
+
+.igm__mobile-background,
+.igm__mobile-flip,
+.igm__mobile-face {
+  position: absolute;
+  inset: 0;
+}
+
+.igm__mobile-background {
+  z-index: 1;
+}
+
+.igm__mobile-flip {
+  z-index: 2;
+  transform-style: preserve-3d;
+  transition: transform 0.56s cubic-bezier(.65, .05, .36, 1);
+  will-change: transform;
+  box-shadow: 0 6px 22px rgba(30, 22, 18, 0.18);
+}
+
+.igm__mobile-face {
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.igm__mobile-face--back {
+  transform: rotateY(180deg);
 }
 
 .igm__single-nav { display: flex; align-items: center; gap: 16px; }
 .igm__single-counter { font-size: 0.62rem; color: var(--text-light, #6b5c52); letter-spacing: 0.1em; min-width: 50px; text-align: center; }
+.igm__swipe-hint { margin-top: -8px; font-size: 0.54rem; color: var(--text-light, #6b5c52); letter-spacing: 0.12em; opacity: 0.7; }
 
 /* ── Lien Instagram ─────────────────────────────── */
 .igm__ig-link { display: flex; justify-content: center; margin-top: 2rem; }
@@ -346,4 +478,11 @@ onUnmounted(() => {
 .igm__ig-btn:hover { background: var(--accent-dark, #a8897a); color: var(--white, #fff); }
 
 @media (max-width: 600px) { .igm { padding: 3rem 1rem; } .igm__floral { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .igm__mobile-flip,
+  .igm__flip-leaf {
+    transition-duration: 0.01ms;
+  }
+}
 </style>
