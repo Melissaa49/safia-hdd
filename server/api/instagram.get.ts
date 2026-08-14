@@ -1,6 +1,7 @@
 // server/api/instagram.get.ts
-// Récupère les publications Instagram via RSS (rss.app) — sans accès Meta API
-// Cache serveur 30 min pour limiter les appels RSS
+// Récupère les publications Instagram via RSS.app, sans API Meta.
+// Si le flux RSS ne répond pas, retourne simplement [] au lieu d'afficher
+// de fausses publications.
 
 import { defineCachedEventHandler } from 'nitropack/runtime'
 
@@ -12,126 +13,240 @@ interface InstagramPost {
   link: string
 }
 
-const MOCK_POSTS: InstagramPost[] = [
-  { src: '/images/polaroid1.jpg',  caption: 'Un mariage tout en douceur, des émotions plein les yeux ✨', date: '14 jan.', likes: 0, link: '#' },
-  { src: '/images/polaroid2.jpg',  caption: 'Séance glow up — retrouver confiance en soi 🌸', date: '8 jan.', likes: 0, link: '#' },
-  { src: '/images/polaroid3.jpg',  caption: 'Portrait entrepreneur — votre image, votre force 💼', date: '2 jan.', likes: 0, link: '#' },
-  { src: '/images/polaroid4.jpg',  caption: 'Séance couple dans la lumière de fin d\'après-midi 🌅', date: '28 déc.', likes: 0, link: '#' },
-  { src: '/images/polaroid5.jpg',  caption: 'La lumière dorée de décembre 🍂', date: '20 déc.', likes: 0, link: '#' },
-  { src: '/images/polaroid6.jpg',  caption: 'Un moment de vie capturé, une éternité préservée 💛', date: '15 déc.', likes: 0, link: '#' },
-  { src: '/images/polaroid7.jpg',  caption: 'L\'émotion en image — c\'est ce que je cherche 📷', date: '10 déc.', likes: 0, link: '#' },
-  { src: '/images/polaroid8.jpg',  caption: 'Shooting en extérieur — la nature comme décor 🌿', date: '5 déc.', likes: 0, link: '#' },
-  { src: '/images/polaroid9.jpg',  caption: 'Portrait féminin — la lumière naturelle, toujours 🤍', date: '28 nov.', likes: 0, link: '#' },
-  { src: '/images/polaroid10.jpg', caption: 'Séance famille — des souvenirs pour la vie 👨‍👩‍👧', date: '22 nov.', likes: 0, link: '#' },
-  { src: '/images/polaroid11.jpg', caption: 'Mariage d\'automne — dorés, comme les feuilles 🍁', date: '15 nov.', likes: 0, link: '#' },
-]
-
-function formatDate(dateStr: string): string {
-  try {
-    return new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-  } catch {
-    return ''
-  }
+function decodeHTML(value: string): string {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
 }
 
-function extractImage(item: string): string {
-  const patterns: RegExp[] = [
-    /enclosure[^>]+url="([^"]+)"/,
-    /media:content[^>]+url="([^"]+)"/,
-    /<img[^>]+src="([^"]+)"/,
-  ]
-  for (const re of patterns) {
-    const m = re.exec(item)
-    if (m?.[1]) return m[1]
+function stripCdata(value: string): string {
+  return value
+    .replace(/^\s*<!\[CDATA\[/, '')
+    .replace(/\]\]>\s*$/, '')
+}
+
+function stripHTML(value: string): string {
+  return decodeHTML(stripCdata(value))
+    .replace(/<br\s*\/?\s*>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function safeMatch(re: RegExp, value: string): string {
+  const match = re.exec(value)
+
+  if (!match || typeof match[1] !== 'string') {
+    return ''
   }
+
+  return match[1]
+}
+
+function formatDate(value: string): string {
+  if (!value) return ''
+
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  return date.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'short',
+  })
+}
+
+function extractImage(block: string): string {
+  const patterns: RegExp[] = [
+    /<media:content[^>]+url=["']([^"']+)["'][^>]*>/i,
+    /<media:thumbnail[^>]+url=["']([^"']+)["'][^>]*>/i,
+    /<enclosure[^>]+url=["']([^"']+)["'][^>]*>/i,
+    /<img[^>]+src=["']([^"']+)["'][^>]*>/i,
+  ]
+
+  for (const pattern of patterns) {
+    const image = safeMatch(pattern, block)
+
+    if (image) {
+      return decodeHTML(image.trim())
+    }
+  }
+
   return ''
 }
 
-function stripHTML(html: string): string {
-  return html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ').trim()
-}
+function extractCaption(block: string): string {
+  const candidates = [
+    safeMatch(/<title[^>]*>([\s\S]*?)<\/title>/i, block),
+    safeMatch(/<description[^>]*>([\s\S]*?)<\/description>/i, block),
+    safeMatch(
+      /<content:encoded[^>]*>([\s\S]*?)<\/content:encoded>/i,
+      block,
+    ),
+    safeMatch(/<content[^>]*>([\s\S]*?)<\/content>/i, block),
+    safeMatch(/<summary[^>]*>([\s\S]*?)<\/summary>/i, block),
+  ]
 
-function decodeHTML(str: string): string {
-  return str
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-}
+  for (const candidate of candidates) {
+    const caption = stripHTML(candidate)
 
-function safeMatch(re: RegExp, str: string): string {
-  const m = re.exec(str)
-  if (!m) return ''
-  const g = m[1]
-  return typeof g === 'string' ? g : ''
-}
-
-function parseRSS(xml: string): InstagramPost[] {
-  const posts: InstagramPost[] = []
-  const itemRe = /<item>([\s\S]*?)<\/item>/g
-  let m = itemRe.exec(xml)
-
-  while (m !== null) {
-    const g1 = m[1]
-    const item: string = typeof g1 === 'string' ? g1 : ''
-
-    if (item) {
-      const titleRaw: string = safeMatch(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/, item)
-      const linkRaw: string  = safeMatch(/<link>([\s\S]*?)<\/link>/, item)
-      const dateRaw: string  = safeMatch(/<pubDate>([\s\S]*?)<\/pubDate>/, item)
-
-      const caption: string = titleRaw ? stripHTML(titleRaw) : ''
-      const rawSrc: string  = extractImage(item)
-      // Décode les entités HTML (&amp; → &) avant de proxifier
-      const cleanSrc: string = decodeHTML(rawSrc)
-      const src: string     = cleanSrc ? `/api/proxy-image?url=${encodeURIComponent(cleanSrc)}` : ''
-      const link: string    = linkRaw.trim() || '#'
-      const date: string    = dateRaw ? formatDate(dateRaw.trim()) : ''
-
-      if (src && caption) {
-        posts.push({ src, caption, date, likes: 0, link })
-      }
+    if (caption) {
+      return caption
     }
-
-    m = itemRe.exec(xml)
   }
 
-  return posts.slice(0, 12)
+  return 'Publication Instagram'
 }
 
-// ── Handler avec cache serveur ─────────────────────────────────────────
-// maxAge: 1800s = 30 min → limite les appels RSS
-// staleMaxAge: 7200s = 2h → garde l'ancien résultat si le RSS est indisponible
+function extractLink(block: string): string {
+  const rssLink = stripCdata(
+    safeMatch(/<link[^>]*>([\s\S]*?)<\/link>/i, block),
+  ).trim()
+
+  if (rssLink) {
+    return decodeHTML(rssLink)
+  }
+
+  const atomAlternate = safeMatch(
+    /<link[^>]+rel=["']alternate["'][^>]+href=["']([^"']+)["'][^>]*>/i,
+    block,
+  )
+
+  if (atomAlternate) {
+    return decodeHTML(atomAlternate.trim())
+  }
+
+  const atomHref = safeMatch(
+    /<link[^>]+href=["']([^"']+)["'][^>]*>/i,
+    block,
+  )
+
+  if (atomHref) {
+    return decodeHTML(atomHref.trim())
+  }
+
+  return 'https://www.instagram.com/safiamomentsdevie/'
+}
+
+function extractDate(block: string): string {
+  return (
+    stripCdata(
+      safeMatch(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i, block),
+    ).trim() ||
+    stripCdata(
+      safeMatch(/<published[^>]*>([\s\S]*?)<\/published>/i, block),
+    ).trim() ||
+    stripCdata(
+      safeMatch(/<updated[^>]*>([\s\S]*?)<\/updated>/i, block),
+    ).trim()
+  )
+}
+
+function parseFeed(xml: string): InstagramPost[] {
+  const posts: InstagramPost[] = []
+  const blocks: string[] = []
+
+  const patterns = [
+    /<item\b[^>]*>([\s\S]*?)<\/item>/gi,
+    /<entry\b[^>]*>([\s\S]*?)<\/entry>/gi,
+  ]
+
+  for (const pattern of patterns) {
+    let match: RegExpExecArray | null
+
+    while ((match = pattern.exec(xml)) !== null) {
+      if (typeof match[1] === 'string') {
+        blocks.push(match[1])
+      }
+    }
+  }
+
+  for (const block of blocks) {
+    const imageUrl = extractImage(block)
+
+    if (!imageUrl) {
+      continue
+    }
+
+    posts.push({
+      src: `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`,
+      caption: extractCaption(block),
+      date: formatDate(extractDate(block)),
+      likes: 0,
+      link: extractLink(block),
+    })
+
+    if (posts.length >= 12) {
+      break
+    }
+  }
+
+  return posts
+}
+
 export default defineCachedEventHandler(
   async (): Promise<InstagramPost[]> => {
-    const rssUrl = process.env.INSTAGRAM_RSS_URL
+    const rssUrl = process.env.INSTAGRAM_RSS_URL?.trim()
 
     if (!rssUrl) {
-      console.info('[instagram] Pas de INSTAGRAM_RSS_URL — posts de démo')
-      return MOCK_POSTS
+      console.error(
+        '[instagram] Variable INSTAGRAM_RSS_URL absente',
+      )
+
+      return []
     }
 
     try {
       const xml = await $fetch<string>(rssUrl, {
-        headers: { Accept: 'application/rss+xml, application/xml, text/xml' },
+        headers: {
+          Accept:
+            'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
+          'User-Agent': 'Mozilla/5.0 SafiaMomentsDeVie/1.0',
+        },
+        retry: 1,
+        timeout: 10000,
       })
-      const posts = parseRSS(xml)
-      if (!posts.length) {
-        console.warn('[instagram] Flux RSS vide — fallback démo')
-        return MOCK_POSTS
+
+      if (typeof xml !== 'string' || !xml.trim()) {
+        console.error('[instagram] Le flux RSS est vide')
+
+        return []
       }
-      console.info(`[instagram] ${posts.length} publications chargées depuis RSS`)
+
+      const posts = parseFeed(xml)
+
+      if (!posts.length) {
+        console.error(
+          '[instagram] Flux reçu mais aucune publication exploitable trouvée',
+        )
+
+        return []
+      }
+
+      console.info(
+        `[instagram] ${posts.length} publication(s) chargée(s) depuis le RSS`,
+      )
+
       return posts
-    } catch (err) {
-      console.error('[instagram] Erreur RSS :', err)
-      return MOCK_POSTS
+    } catch (error) {
+      console.error(
+        '[instagram] Impossible de charger le flux RSS',
+        error,
+      )
+
+      return []
     }
   },
   {
-    maxAge: 60 * 30,       // cache 30 minutes
-    staleMaxAge: 60 * 120, // garde l'ancien résultat 2h en cas d'erreur
+    maxAge: 60 * 15,
+    staleMaxAge: 60 * 120,
     name: 'instagram-feed',
-  }
+  },
 )
