@@ -77,6 +77,15 @@ useHead({
  .instagram-section__profile>a{padding:.48rem .62rem;font-size:.48rem;letter-spacing:.1em}
  .instagram-section__widget-shell{margin:0 .65rem;padding:2.3rem .35rem .35rem;border-radius:18px;box-shadow:0 16px 40px rgba(51,36,28,.08)}
  .instagram-section__widget{border-radius:13px;min-height:210px;background:#fff}
+ /* SociableKIT rend normalement ses posts dans le DOM. Sur mobile on transforme
+    les conteneurs de feed usuels en grille 2 colonnes, sans toucher au desktop. */
+ :deep(.sk-instagram-feed [class*="grid"]),
+ :deep(.sk-instagram-feed [class*="posts"]),
+ :deep(.sk-instagram-feed [class*="feed-items"]),
+ :deep(.sk-instagram-feed [class*="items"]){grid-template-columns:repeat(2,minmax(0,1fr))!important;columns:2!important;column-gap:5px!important;row-gap:5px!important}
+ :deep(.sk-instagram-feed [class*="item"]),
+ :deep(.sk-instagram-feed [class*="post"]){min-width:0!important;max-width:100%!important;margin:0!important}
+ :deep(.sk-instagram-feed img){width:100%!important;max-width:100%!important;height:auto!important;object-fit:cover}
  .instagram-section__footer{margin-top:1.5rem;padding:0 1rem}
  .instagram-section__button{font-size:.53rem;letter-spacing:.13em;padding:.8rem .25rem}
 }
