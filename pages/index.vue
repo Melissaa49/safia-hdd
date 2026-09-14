@@ -1,124 +1,83 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Safia Moments de Vie — Photographe de mariage',
-  description: 'Photographe de mariage en France. Des souvenirs sincères, des émotions vraies, immortalisées avec douceur et authenticité.',
+  title: 'Safia Moments de Vie — Photographe mariage, grossesse & formation photo',
+  description: 'Photographe à Mouscron pour mariage, grossesse, portraits et entrepreneures. Découvrez aussi les formations photo personnalisées de Safia Moments de Vie.',
 })
 
 const tabs = ['Mariages', 'Brandshooting']
 const activeTab = ref('Mariages')
-
 const heroImg = '/images/polaroid1.jpg'
-
-const approchePolaroids = [
-  '/images/polaroid4.jpg',
-  '/images/galery/mariage6.jpg',
-  '/images/galery/mariage9.jpg',
-]
-
+const approchePolaroids = ['/images/polaroid4.jpg', '/images/galery/mariage6.jpg', '/images/galery/mariage9.jpg']
 const collectionsImages = {
-  Mariages: [
-    '/images/galery/mariage11.jpg',
-    '/images/galery/mariage6.jpg',
-    '/images/galery/mariage3.JPG',
-    '/images/galery/mariage4.JPG',
-    '/images/galery/mariage7.jpg',
-    '/images/galery/mariage6.JPG',
-  ],
-  Brandshooting: [
-    '/images/galery/entrepreneur6.jpg',
-    '/images/galery/entrepreneur8.jpg',
-    '/images/galery/entrepreneur3.jpg',
-    '/images/galery/entrepreneur13.jpg',
-    '/images/galery/entrepreneur14.jpg',
-    '/images/galery/entrepreneur10.jpg',
-  ],
+  Mariages: ['/images/galery/mariage11.jpg','/images/galery/mariage6.jpg','/images/galery/mariage3.JPG','/images/galery/mariage4.JPG','/images/galery/mariage7.jpg','/images/galery/mariage6.JPG'],
+  Brandshooting: ['/images/galery/entrepreneur6.jpg','/images/galery/entrepreneur8.jpg','/images/galery/entrepreneur3.jpg','/images/galery/entrepreneur13.jpg','/images/galery/entrepreneur14.jpg','/images/galery/entrepreneur10.jpg'],
 }
-
 const galleryImgs = computed(() => collectionsImages[activeTab.value as keyof typeof collectionsImages])
+
+const googleReviews = [
+  { name: 'Sonia', date: 'il y a un mois', text: 'Safia est très gentille et patiente, nous avons fait appel à ses services pour nos photos de mariage et le résultat fut magnifique, je recommande sans hésiter' },
+  { name: 'Centre Pluridisciplinaire Molière', date: 'il y a un mois', text: 'Une photographe exceptionnelle ! Talentueuse, professionnelle et passionnée. Je la recommande les yeux fermés.' },
+  { name: 'chaimaa Fera', date: 'il y a 11 mois', text: 'Une expérience incroyable ! Safia sait capturer des moments magnifiques avec beaucoup de talent et de sensibilité. Les photos sont naturelles, lumineuses et reflètent parfaitement l’ambiance de la séance. Elle met vraiment à l’aise, même les plus timides, et le résultat est au-delà des attentes. Je recommande à 100 % !' },
+]
+const reviewsTrack = ref<HTMLElement | null>(null)
+const scrollReviews = (direction: number) => reviewsTrack.value?.scrollBy({ left: direction * 340, behavior: 'smooth' })
+
+const faq = [
+  { q: 'Comment réserver une séance photo avec Safia ?', a: 'Envoyez votre demande via le formulaire de contact en précisant le type de séance, la période souhaitée et votre projet. Safia revient ensuite vers vous pour confirmer les possibilités et vous proposer la formule adaptée.' },
+  { q: 'Où se déroulent les séances ?', a: 'Safia est basée à Mouscron et se déplace selon les projets. Le lieu est choisi en fonction de l’ambiance recherchée : extérieur, lieu de réception, domicile ou autre décor adapté à votre histoire.' },
+  { q: 'Quand faut-il réserver une séance grossesse ?', a: 'Le mieux est d’anticiper afin de choisir sereinement la période et le lieu. Indiquez votre terme dans votre demande : Safia pourra vous conseiller le moment le plus adapté.' },
+  { q: 'Proposez-vous des reportages de mariage ?', a: 'Oui. Les prestations mariage sont construites selon votre journée et vos besoins, des préparatifs aux moments forts de la célébration. Un devis personnalisé peut être établi après échange.' },
+  { q: 'Safia propose-t-elle des formations photo ?', a: 'Oui. Les formations peuvent être personnalisées selon votre niveau, votre matériel et l’objectif que vous souhaitez travailler. Une demande permet d’identifier précisément votre besoin avant de proposer le format et le tarif adaptés.' },
+  { q: 'Comment connaître le tarif exact de mon projet ?', a: 'Chaque projet peut être différent. Décrivez votre besoin via le formulaire : vous recevrez une proposition adaptée au type de séance, au lieu, à la durée et aux options souhaitées.' },
+]
 </script>
 
 <template>
-  <!-- HERO -->
   <section class="hero">
     <div class="hero__content">
-      <span class="hero__eyebrow">Photographe de mariage</span>
-      <h1 class="hero__title">Raconter<br>l'essentiel</h1>
-      <p class="hero__subtitle">Vos instants. Votre histoire.</p>
-      <p class="hero__desc">
-        Des souvenirs sincères, des émotions vraies,
-        immortalisées avec douceur et authenticité.
-      </p>
-      <NuxtLink to="/portfolio" class="hero__btn">
-        Découvrir mon univers <span>→</span>
-      </NuxtLink>
+      <span class="hero__eyebrow">Photographe · Mouscron & alentours</span><h1 class="hero__title">Raconter<br>l'essentiel</h1><p class="hero__subtitle">Vos instants. Votre histoire.</p>
+      <p class="hero__desc">Mariage, grossesse, portraits et image de marque : des souvenirs sincères, des émotions vraies, immortalisées avec douceur et authenticité.</p>
+      <div class="home-hero-actions"><NuxtLink to="/contact" class="hero__btn">Parler de mon projet <span>→</span></NuxtLink><NuxtLink to="/portfolio" class="home-text-link">Découvrir le portfolio</NuxtLink></div>
+      <div class="home-reassurance"><span>♡ Échange personnalisé</span><span>♡ Devis sur mesure</span><span>♡ 6 ans d'expérience</span></div>
     </div>
+    <div class="hero__image-wrap"><div class="hero__image-arch"><img :src="heroImg" alt="Photographe Safia Moments de Vie" /></div><div class="hero__badge">Photographe<br>Storyteller</div></div>
+  </section>
 
-    <div class="hero__image-wrap">
-      <div class="hero__image-arch">
-        <img :src="heroImg" alt="Photographie de mariage" />
+  <section class="home-choices"><div class="home-section-head"><span>Votre histoire</span><h2>Que souhaitez-vous raconter ?</h2><p>Choisissez l’expérience qui vous ressemble et découvrez une page pensée pour votre projet.</p></div><div class="home-choice-grid"><NuxtLink to="/meta-grossesse" class="home-choice-card"><span>01</span><h3>Grossesse</h3><p>Une séance douce et naturelle pour garder une trace de cette période unique.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-mariage" class="home-choice-card"><span>02</span><h3>Mariage</h3><p>Un reportage vivant, élégant et sincère pour raconter votre journée telle qu’elle a été vécue.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-formation-photo" class="home-choice-card home-choice-card--featured"><span>03 · Formation</span><h3>Progresser en photo</h3><p>Un accompagnement ciblé selon votre niveau et l’objectif précis que vous voulez maîtriser.</p><strong>Faire le point sur mon besoin →</strong></NuxtLink></div></section>
+
+  <section class="approche"><div class="approche__content"><h2 class="approche__heading">Mon approche</h2><p class="approche__text">Discrète et bienveillante, j'immortalise les émotions vraies et les détails qui font toute la beauté de votre histoire.</p><NuxtLink to="/a-propos" class="approche__link">En savoir plus →</NuxtLink></div><div class="approche__photos"><div v-for="(img, i) in approchePolaroids" :key="i" class="approche__photo"><img :src="img" :alt="'Univers Safia ' + (i + 1)" /></div></div><div class="approche__quote"><span class="approche__quote-mark">"</span><p class="approche__quote-text">Ce que j'aime,<br>c'est figer l'instant<br>pour qu'il devienne<br>un souvenir pour toujours.</p><span class="approche__quote-heart">♡</span></div></section>
+
+  <section class="collections"><div class="collections__header"><h2 class="collections__title">Explorer les collections</h2><ul class="collections__tabs"><li v-for="tab in tabs" :key="tab" class="collections__tab" :class="{ active: activeTab === tab }" @click="activeTab = tab">{{ tab }}</li></ul></div><div class="collections__grid"><div v-for="(img, i) in galleryImgs" :key="activeTab + '-' + i" class="collections__item"><img :src="img" :alt="'Photo ' + activeTab + ' ' + (i + 1)" /></div></div><div class="collections__cta"><NuxtLink to="/portfolio">Voir tout le portfolio →</NuxtLink></div></section>
+
+  <section class="google-reviews">
+    <div class="home-section-head reviews-heading"><span>Vos mots, mes plus beaux souvenirs</span><h2>Ce sont eux qui en parlent le mieux</h2><p>Des expériences vécues, racontées par celles et ceux qui sont passés devant mon objectif.</p></div>
+    <div class="reviews-wrap">
+      <div class="reviews-top"><div class="google-signature"><span class="google-mark">G</span><div><strong>Google</strong><div><span class="google-stars">★★★★★</span><small>Avis clients</small></div></div></div><div class="review-arrows"><button type="button" aria-label="Avis précédent" @click="scrollReviews(-1)">←</button><button type="button" aria-label="Avis suivant" @click="scrollReviews(1)">→</button></div></div>
+      <div ref="reviewsTrack" class="reviews-track">
+        <article v-for="review in googleReviews" :key="review.name" class="review-card">
+          <div class="review-card__top"><div class="review-avatar">{{ review.name.charAt(0).toUpperCase() }}</div><div><h3>{{ review.name }}</h3><span>{{ review.date }}</span></div><span class="review-google">G</span></div>
+          <div class="review-stars" aria-label="5 étoiles sur 5">★★★★★ <small>5/5</small></div>
+          <p>“{{ review.text }}”</p>
+          <div class="review-card__footer"><span>Avis Google vérifié</span><span class="tiny-heart">♡</span></div>
+        </article>
       </div>
-      <div class="hero__badge">
-        Photographe<br>Storyteller
-      </div>
+      <div class="reviews-more"><a href="https://share.google/r1lLL1d1cZaRdhwRA" target="_blank" rel="noopener noreferrer">Voir plus d’avis sur Google <span>↗</span></a></div>
     </div>
   </section>
 
-  <!-- MON APPROCHE -->
-  <section class="approche">
-    <div class="approche__content">
-      <h2 class="approche__heading">Mon approche</h2>
-      <p class="approche__text">
-        Discrète et bienveillante, j'immortalise les émotions vraies
-        et les détails qui font toute la beauté de votre histoire.
-      </p>
-      <NuxtLink to="/a-propos" class="approche__link">
-        En savoir plus →
-      </NuxtLink>
-    </div>
-
-    <div class="approche__photos">
-      <div v-for="(img, i) in approchePolaroids" :key="i" class="approche__photo">
-        <img :src="img" :alt="'Photo mariage ' + (i + 1)" />
-      </div>
-    </div>
-
-    <div class="approche__quote">
-      <span class="approche__quote-mark">"</span>
-      <p class="approche__quote-text">
-        Ce que j'aime,<br>
-        c'est figer l'instant<br>
-        pour qu'il devienne<br>
-        un souvenir pour toujours.
-      </p>
-      <span class="approche__quote-heart">♡</span>
-    </div>
+  <section class="home-faq">
+    <div class="faq-layout"><div class="faq-intro"><span>Quelques réponses avant de se rencontrer</span><h2>Questions<br><em>fréquentes</em></h2><p>Parce qu’un projet photo commence souvent par quelques questions. Voici l’essentiel pour avancer sereinement.</p><NuxtLink to="/contact" class="faq-contact">Une autre question ? Écrivez-moi →</NuxtLink></div><div class="home-faq-list"><details v-for="(item, index) in faq" :key="item.q" class="home-faq-item"><summary><span class="faq-number">0{{ index + 1 }}</span><strong>{{ item.q }}</strong><span class="faq-plus">+</span></summary><div class="faq-answer"><p>{{ item.a }}</p></div></details></div></div>
   </section>
 
-  <!-- COLLECTIONS -->
-  <section class="collections">
-    <div class="collections__header">
-      <h2 class="collections__title">Explorer les collections</h2>
-      <ul class="collections__tabs">
-        <li
-          v-for="tab in tabs"
-          :key="tab"
-          class="collections__tab"
-          :class="{ active: activeTab === tab }"
-          @click="activeTab = tab"
-        >
-          {{ tab }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="collections__grid">
-      <div v-for="(img, i) in galleryImgs" :key="activeTab + '-' + i" class="collections__item">
-        <img :src="img" :alt="'Photo ' + activeTab + ' ' + (i + 1)" />
-      </div>
-    </div>
-
-    <div class="collections__cta">
-      <NuxtLink to="/portfolio">Voir tout le portfolio →</NuxtLink>
-    </div>
-  </section>
+  <section class="home-final-cta"><span>Une idée, une date, une envie ?</span><h2>Racontez-moi votre projet.</h2><p>Quelques lignes suffisent pour commencer. Je vous répondrai avec une proposition adaptée à votre histoire et à vos besoins.</p><NuxtLink to="/contact" class="hero__btn">Demander mon devis <span>→</span></NuxtLink></section>
 </template>
+
+<style scoped>
+.home-hero-actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}.home-text-link{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--accent-dark);padding-bottom:3px}.home-reassurance{display:flex;gap:1rem;flex-wrap:wrap;font-size:.68rem;color:var(--text-light)}
+.home-choices,.google-reviews,.home-faq{padding:6rem max(1.5rem,7vw);background:var(--cream)}.home-section-head{text-align:center;max-width:700px;margin:0 auto 3rem}.home-section-head>span,.home-final-cta>span,.faq-intro>span{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}.home-section-head h2,.home-final-cta h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.4rem);font-weight:400;line-height:1.1;margin:.6rem 0 1rem}.home-section-head p,.home-final-cta p{color:var(--text-light);font-size:.86rem;line-height:1.8}.home-choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1120px;margin:auto}.home-choice-card{padding:2.4rem;background:rgba(255,255,255,.42);border:1px solid var(--cream-dark);min-height:260px;display:flex;flex-direction:column;transition:.25s}.home-choice-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.7)}.home-choice-card--featured{background:var(--dark);color:#fff}.home-choice-card>span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-dark)}.home-choice-card h3{font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin:1rem 0}.home-choice-card p{font-size:.8rem;line-height:1.8;opacity:.72}.home-choice-card strong{margin-top:auto;padding-top:1.5rem;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500}
+.google-reviews{background:#fbf7f3;overflow:hidden}.reviews-heading{margin-bottom:2.2rem}.reviews-wrap{max-width:1120px;margin:auto}.reviews-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}.google-signature{display:flex;align-items:center;gap:.8rem}.google-mark{font-family:Arial,sans-serif;font-size:2rem;font-weight:700;color:#4285f4}.google-signature strong{font-family:var(--font-display);font-size:1rem;font-weight:500}.google-signature small{font-size:.58rem;color:var(--text-light);margin-left:.5rem;letter-spacing:.08em;text-transform:uppercase}.google-stars,.review-stars{color:#e9a923;letter-spacing:.08em}.review-arrows{display:flex;gap:.5rem}.review-arrows button{width:42px;height:42px;border:1px solid var(--cream-dark);border-radius:50%;background:transparent;color:var(--text);font-size:1rem;cursor:pointer;transition:.2s}.review-arrows button:hover{background:var(--dark);color:#fff;border-color:var(--dark)}.reviews-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,1fr);grid-template-rows:1fr;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:.4rem .2rem 1rem}.reviews-track::-webkit-scrollbar{display:none}.review-card{scroll-snap-align:start;background:#fff;border:1px solid #eadfd7;padding:1.6rem;min-height:300px;display:flex;flex-direction:column;box-shadow:0 12px 35px rgba(63,43,31,.045);position:relative}.review-card:before{content:'“';position:absolute;right:1.2rem;top:.7rem;font-family:var(--font-display);font-size:4rem;color:var(--cream-dark);line-height:1}.review-card__top{display:flex;align-items:center;gap:.7rem;position:relative;z-index:1}.review-avatar{width:38px;height:38px;border-radius:50%;background:var(--cream-dark);display:grid;place-items:center;font-family:var(--font-display);font-size:1rem;color:var(--accent-dark)}.review-card__top h3{font-size:.78rem;font-weight:500}.review-card__top div span{display:block;font-size:.58rem;color:var(--text-light);margin-top:.1rem}.review-google{margin-left:auto;margin-right:1.5rem;font:bold 1rem Arial;color:#4285f4}.review-stars{font-size:.76rem;margin:1.1rem 0}.review-stars small{color:var(--text-light);font-size:.55rem;margin-left:.35rem;letter-spacing:.05em}.review-card p{font-family:var(--font-display);font-size:.93rem;line-height:1.75;color:#433a34;flex:1}.review-card__footer{border-top:1px solid var(--cream-dark);margin-top:1.25rem;padding-top:.8rem;display:flex;justify-content:space-between;align-items:center;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light)}.tiny-heart{font-size:1rem;color:var(--accent-dark)}.reviews-more{text-align:center;margin-top:1.2rem}.reviews-more a{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--accent-dark);padding:.5rem 0;color:var(--text)}
+.home-faq{background:var(--cream)}.faq-layout{max-width:1120px;margin:auto;display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(3rem,8vw,8rem);align-items:start}.faq-intro{position:sticky;top:110px}.faq-intro h2{font-family:var(--font-display);font-size:clamp(2.7rem,5vw,4.5rem);font-weight:400;line-height:.95;margin:1rem 0 1.4rem}.faq-intro h2 em{font-family:var(--font-script);font-weight:400;color:var(--accent-dark);font-size:1.05em}.faq-intro p{font-size:.8rem;color:var(--text-light);line-height:1.8;max-width:38ch}.faq-contact{display:inline-block;margin-top:1.7rem;font-size:.61rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--accent-dark);padding-bottom:.25rem}.home-faq-list{border-top:1px solid var(--accent)}.home-faq-item{border-bottom:1px solid var(--accent);background:transparent}.home-faq-item summary{list-style:none;cursor:pointer;padding:1.55rem .2rem;display:grid;grid-template-columns:38px 1fr 30px;align-items:center;gap:.8rem}.home-faq-item summary::-webkit-details-marker{display:none}.faq-number{font-family:var(--font-display);font-size:.7rem;color:var(--accent-dark);font-style:italic}.home-faq-item summary strong{font-family:var(--font-display);font-size:1.05rem;font-weight:400;line-height:1.35}.faq-plus{width:28px;height:28px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;color:var(--accent-dark);font-size:1rem;transition:.25s}.home-faq-item[open] .faq-plus{transform:rotate(45deg);background:var(--accent);color:#fff}.faq-answer{padding:0 3.2rem 1.6rem 3rem}.faq-answer p{color:var(--text-light);font-size:.79rem;line-height:1.85;max-width:60ch}.home-final-cta{text-align:center;background:var(--dark);color:#fff;padding:6rem 1.5rem}.home-final-cta p{max-width:560px;margin:0 auto 1.8rem;color:rgba(255,255,255,.65)}.home-final-cta .hero__btn{margin:auto}
+@media(min-width:1000px){.reviews-track{grid-auto-columns:calc((100% - 2rem)/3)}}
+@media(max-width:800px){.home-choice-grid{grid-template-columns:1fr}.home-choice-card{min-height:220px}.home-choices,.google-reviews,.home-faq{padding-top:4rem;padding-bottom:4rem}.home-reassurance{font-size:.62rem}.faq-layout{grid-template-columns:1fr;gap:2.5rem}.faq-intro{position:static;text-align:center}.faq-intro p{margin:auto}.reviews-track{grid-auto-columns:min(82vw,330px)}.review-card{min-height:285px}.review-arrows{display:none}}
+@media(max-width:480px){.google-reviews,.home-faq{padding-left:1rem;padding-right:1rem}.reviews-track{grid-auto-columns:88vw}.review-card{padding:1.35rem}.reviews-top{padding:0 .2rem}.google-signature small{display:none}.home-faq-item summary{grid-template-columns:30px 1fr 28px;gap:.5rem;padding:1.3rem 0}.home-faq-item summary strong{font-size:.98rem}.faq-answer{padding:0 2rem 1.4rem 2.4rem}.faq-intro h2{font-size:3rem}}
+</style>
