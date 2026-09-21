@@ -1,13 +1,28 @@
 <script setup lang="ts">
 useSeoMeta({
-  title:'Brand Shooting à Mouscron | Photographe pour professionnels',
-  description:'Brand shooting à Mouscron pour entrepreneurs, indépendants et professionnels. Des photos naturelles et cohérentes pour votre site, vos réseaux sociaux et votre communication.',
+  title:'Brand shooting à Mouscron | Photographe entrepreneurs | Safia',
+  description:'Photographe brand shooting à Mouscron pour entrepreneurs, indépendants, artisans et professionnels : portraits, image de marque, site web et réseaux sociaux.',
   robots:'index, follow',
   ogTitle:'Brand shooting à Mouscron — Safia Moments de Vie',
   ogDescription:'Des images professionnelles et authentiques pour incarner votre marque et valoriser votre activité.',
   ogImage:'/images/galery/entrepreneur6.jpg'
 })
-useHead({link:[{rel:'canonical',href:'https://www.safiamomentsdevie.com/brand-shooting-mouscron'}]})
+useHead({
+  link:[{rel:'canonical',href:'https://www.safiamomentsdevie.com/brand-shooting-mouscron'}],
+  script:[{
+    type:'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context':'https://schema.org',
+      '@type':'Service',
+      name:'Brand shooting professionnel à Mouscron',
+      serviceType:'Photographie de marque et portraits professionnels',
+      provider:{'@type':'ProfessionalService',name:'Safia Moments de Vie',url:'https://www.safiamomentsdevie.com'},
+      areaServed:{'@type':'City',name:'Mouscron'},
+      audience:{'@type':'Audience',audienceType:'Entrepreneurs, indépendants, artisans et professionnels'},
+      url:'https://www.safiamomentsdevie.com/brand-shooting-mouscron'
+    })
+  }]
+})
 const faq=[
  {q:'À qui s’adresse un brand shooting ?',a:'Aux entrepreneures, indépendants, artisans, créateurs et professionnels qui souhaitent construire une image de marque plus humaine, cohérente et professionnelle.'},
  {q:'Où puis-je utiliser les photos ?',a:'Les images peuvent notamment servir à votre site internet, vos réseaux sociaux, vos supports de communication et vos contenus professionnels, selon les conditions prévues avec Safia.'},
