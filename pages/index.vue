@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Safia Moments de Vie — Photographe mariage, grossesse & formation photo',
-  description: 'Photographe à Mouscron pour mariage, grossesse, portraits et entrepreneures. Découvrez aussi les formations photo personnalisées de Safia Moments de Vie.',
+  title: 'Safia Moments de Vie — Photographe mariage, brand shooting & formation photo',
+  description: 'Photographe à Mouscron pour mariage, brand shooting, portraits professionnels et entrepreneures. Créez des images de marque authentiques et découvrez les formations photo personnalisées de Safia Moments de Vie.',
 })
 
 const tabs = ['Mariages', 'Brandshooting']
@@ -25,7 +25,7 @@ const scrollReviews = (direction: number) => reviewsTrack.value?.scrollBy({ left
 const faq = [
   { q: 'Comment réserver une séance photo avec Safia ?', a: 'Envoyez votre demande via le formulaire de contact en précisant le type de séance, la période souhaitée et votre projet. Safia revient ensuite vers vous pour confirmer les possibilités et vous proposer la formule adaptée.' },
   { q: 'Où se déroulent les séances ?', a: 'Safia est basée à Mouscron et se déplace selon les projets. Le lieu est choisi en fonction de l’ambiance recherchée : extérieur, lieu de réception, domicile ou autre décor adapté à votre histoire.' },
-  { q: 'Quand faut-il réserver une séance grossesse ?', a: 'Le mieux est d’anticiper afin de choisir sereinement la période et le lieu. Indiquez votre terme dans votre demande : Safia pourra vous conseiller le moment le plus adapté.' },
+  { q: 'À qui s’adresse le brand shooting ?', a: 'Le brand shooting s’adresse aux entrepreneures, indépendants, artisans et professionnels qui souhaitent disposer de photos cohérentes avec leur image de marque pour leur site, leurs réseaux sociaux et leurs supports de communication.' },
   { q: 'Proposez-vous des reportages de mariage ?', a: 'Oui. Les prestations mariage sont construites selon votre journée et vos besoins, des préparatifs aux moments forts de la célébration. Un devis personnalisé peut être établi après échange.' },
   { q: 'Safia propose-t-elle des formations photo ?', a: 'Oui. Les formations peuvent être personnalisées selon votre niveau, votre matériel et l’objectif que vous souhaitez travailler. Une demande permet d’identifier précisément votre besoin avant de proposer le format et le tarif adaptés.' },
   { q: 'Comment connaître le tarif exact de mon projet ?', a: 'Chaque projet peut être différent. Décrivez votre besoin via le formulaire : vous recevrez une proposition adaptée au type de séance, au lieu, à la durée et aux options souhaitées.' },
@@ -36,14 +36,14 @@ const faq = [
   <section class="hero">
     <div class="hero__content">
       <span class="hero__eyebrow">Photographe · Mouscron & alentours</span><h1 class="hero__title">Raconter<br>l'essentiel</h1><p class="hero__subtitle">Vos instants. Votre histoire.</p>
-      <p class="hero__desc">Mariage, grossesse, portraits et image de marque : des souvenirs sincères, des émotions vraies, immortalisées avec douceur et authenticité.</p>
+      <p class="hero__desc">Mariage, brand shooting, portraits professionnels et image de marque : des photographies sincères et authentiques, pensées pour raconter votre histoire ou valoriser votre activité.</p>
       <div class="home-hero-actions"><NuxtLink to="/contact" class="hero__btn">Parler de mon projet <span>→</span></NuxtLink><NuxtLink to="/portfolio" class="home-text-link">Découvrir le portfolio</NuxtLink></div>
       <div class="home-reassurance"><span>♡ Échange personnalisé</span><span>♡ Devis sur mesure</span><span>♡ 6 ans d'expérience</span></div>
     </div>
     <div class="hero__image-wrap"><div class="hero__image-arch"><img :src="heroImg" alt="Photographe Safia Moments de Vie" /></div><div class="hero__badge">Photographe<br>Storyteller</div></div>
   </section>
 
-  <section class="home-choices"><div class="home-section-head"><span>Votre histoire</span><h2>Que souhaitez-vous raconter ?</h2><p>Choisissez l’expérience qui vous ressemble et découvrez une page pensée pour votre projet.</p></div><div class="home-choice-grid"><NuxtLink to="/meta-grossesse" class="home-choice-card"><span>01</span><h3>Grossesse</h3><p>Une séance douce et naturelle pour garder une trace de cette période unique.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-mariage" class="home-choice-card"><span>02</span><h3>Mariage</h3><p>Un reportage vivant, élégant et sincère pour raconter votre journée telle qu’elle a été vécue.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-formation-photo" class="home-choice-card home-choice-card--featured"><span>03 · Formation</span><h3>Progresser en photo</h3><p>Un accompagnement ciblé selon votre niveau et l’objectif précis que vous voulez maîtriser.</p><strong>Faire le point sur mon besoin →</strong></NuxtLink></div></section>
+  <section class="home-choices"><div class="home-section-head"><span>Votre histoire</span><h2>Que souhaitez-vous raconter ?</h2><p>Choisissez l’expérience qui vous ressemble et découvrez une page pensée pour votre projet.</p></div><div class="home-choice-grid"><NuxtLink to="/brand-shooting-mouscron" class="home-choice-card"><span>01</span><h3>Brand shooting</h3><p>Des images professionnelles, naturelles et cohérentes pour incarner votre marque et valoriser votre activité.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-mariage" class="home-choice-card"><span>02</span><h3>Mariage</h3><p>Un reportage vivant, élégant et sincère pour raconter votre journée telle qu’elle a été vécue.</p><strong>Découvrir →</strong></NuxtLink><NuxtLink to="/meta-formation-photo" class="home-choice-card home-choice-card--featured"><span>03 · Formation</span><h3>Progresser en photo</h3><p>Un accompagnement ciblé selon votre niveau et l’objectif précis que vous voulez maîtriser.</p><strong>Faire le point sur mon besoin →</strong></NuxtLink></div></section>
 
   <section class="approche"><div class="approche__content"><h2 class="approche__heading">Mon approche</h2><p class="approche__text">Discrète et bienveillante, j'immortalise les émotions vraies et les détails qui font toute la beauté de votre histoire.</p><NuxtLink to="/a-propos" class="approche__link">En savoir plus →</NuxtLink></div><div class="approche__photos"><div v-for="(img, i) in approchePolaroids" :key="i" class="approche__photo"><img :src="img" :alt="'Univers Safia ' + (i + 1)" /></div></div><div class="approche__quote"><span class="approche__quote-mark">"</span><p class="approche__quote-text">Ce que j'aime,<br>c'est figer l'instant<br>pour qu'il devienne<br>un souvenir pour toujours.</p><span class="approche__quote-heart">♡</span></div></section>
 
