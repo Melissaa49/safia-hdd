@@ -29,6 +29,6 @@ export default defineNuxtConfig({
     public: { instagramUrl: process.env.NUXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/safiamomentsdevie/' },
   },
   sitemap: {
-    urls: ['/', '/portfolio', '/a-propos', '/formation', '/tarif', '/contact', '/photographe-mouscron', '/photographe-mariage-mouscron', '/formation-photo-mouscron', '/shooting-photo-glow-up-mouscron']
+    urls: ['/', '/portfolio', '/a-propos', '/formation', '/tarif', '/contact', '/brand-shooting-mouscron', '/photographe-mariage-mouscron', '/formation-photo-mouscron', '/shooting-photo-glow-up-mouscron']
   },
 })
