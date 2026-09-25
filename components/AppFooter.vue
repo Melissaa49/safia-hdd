@@ -26,6 +26,11 @@
           </NuxtLink>
         </p>
         <p>
+          <NuxtLink to="/cookies" class="footer__alerya">
+            Cookies
+          </NuxtLink>
+        </p>
+        <p>
           Site créé par
           <a
             href="https://www.alerya.fr"
