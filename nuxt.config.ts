@@ -12,6 +12,16 @@ export default defineNuxtConfig({
         { property: 'og:site_name', content: 'Safia Moments de Vie' },
         { property: 'og:locale', content: 'fr_BE' },
         { property: 'og:type', content: 'website' },
+        { name: 'google-analytics', content: 'G-V1H3NE8D5X' },
+      ],
+      script: [
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-V1H3NE8D5X', async: true },
+        {
+          innerHTML: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-V1H3NE8D5X');`
+        }
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap' },
